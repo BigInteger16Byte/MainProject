@@ -26,21 +26,8 @@ public:
 	bool GetBit(int vt);
 	void SetBit(int vt, bool bit);
 	
-	//Convert
-	string convertQIntToString();
 
-	//Cac ham chuyen doi se khong lam thay doi gia tri data , ma thay doi 1 bien result khac
-	bool* ToBin();
-	QInt BinToDec(bool *bin);
-	QInt ToBu2();
 
+	friend ostream& operator<< (ostream& op, const QInt num);
+	friend istream& operator>>(istream& is, QInt& num);
 };
-
-
-/*------------ Các hàm hỗ trợ xử lý chuỗi---------------*/
-//Cộng 2 chuỗi như số
-string plusString(string a, string b);
-//Hàm nhân cho 2 phục vụ tính lũy thừa 2
-string MultiStringTo2(string str);
-//lũy thừa 2 số như string   2^exp
-string Power2String(int exp);
