@@ -3,17 +3,25 @@
 using namespace std;
 int main() {
 	QInt x;
-	x = 123;
+	x = 123123;
 	
-	for (int i = 0; i < 127; i++) {
+	for (int i = 0; i < 128; i++) {
 		cout << x.GetBit(i);
 	}
-	QInt y = ~x;
 	cout << endl;
-	for (int i = 0; i < 127; i++) {
-		cout << y.GetBit(i);
+	cout << x.convertQIntToString() << endl;
+	/*cout << endl;
+	bool* bit = x.ToBin();
+	for (int i = 0; i < 128; i++) {
+		cout << bit[i];
 	}
 
+	QInt test = x.ToBu2();
+
+	cout << endl;
+	for (int i = 0; i < 128; i++) {
+		cout << test.GetBit(i);
+	}*/
 
 	
 		
