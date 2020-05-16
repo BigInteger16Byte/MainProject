@@ -17,13 +17,24 @@ QInt& QInt::operator =(unsigned int x) {
 
 QInt& QInt::operator~() {
 
-	
+	QInt res;
+
 	for (int i = 0; i < LENGTH; i++) {
-		this->data[i] = ~this->data[i];
+		res.data[i] = ~this->data[i];
 	}
 
-	return *this;
+	return res;
 }
+
+QInt QInt::operator^(QInt num) {
+	QInt result;
+	for (int i = 0; i < LENGTH; i++) {
+		//xor từng cặp byte -> tự so bit
+		result.data[i] = this->data[i] ^ num.data[i];
+	}
+	return result;
+}
+
 
 
 bool QInt::GetBit(int vt) {

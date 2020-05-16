@@ -23,6 +23,7 @@ public:
 	QInt& operator=(unsigned int x);
 	// đảo bit nhưng không làm thay đổi data(Trả về 1 giá trị mới)
 	QInt& operator~();
+	QInt operator^(QInt num);
 	bool GetBit(int vt);
 	void SetBit(int vt, bool bit);
 	

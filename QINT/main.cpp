@@ -3,18 +3,11 @@
 #include<iostream>
 using namespace std;
 int main() {
-	QInt x;
+
+	QInt x, y;
 	cin >> x;
-	
-	bool* bit = Convert::DecToBin(x);
-	for (int i = 0; i < 128; i++) {
-		cout << bit[i];
-	}
-	cout << endl;
-
-	QInt test = Convert::BinToDec(bit);
-
-	cout << test;
+	cin >> y;
+	cout << (x ^ y);
 		
 	return 0;
 	
