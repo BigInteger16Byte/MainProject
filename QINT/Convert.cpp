@@ -1,7 +1,7 @@
 ﻿#include"Convert.h"
 
 //Prototype
-string Div2String(string num, bool& bit);
+string plusString(string a, string b);
 string MultiStringTo2(string str);
 string Power2String(int exp);
 string Div2String(string num, bool& bit);
