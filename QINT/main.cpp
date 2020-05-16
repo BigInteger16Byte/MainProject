@@ -10,12 +10,13 @@ int main() {
 	for (int i = 0; i < 128; i++) {
 		cout << bit[i];
 	}
-		
 	cout << endl;
 
-	QInt x2 = Convert::BinToDec(bit);
-	cout << x2;
-	
+	QInt test = Convert::BinToDec(bit);
+
+	cout << test;
+		
+	return 0;
 	
 		
 }

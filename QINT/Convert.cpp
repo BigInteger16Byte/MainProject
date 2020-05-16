@@ -18,15 +18,10 @@ bool* Convert::DecToBin(QInt num) {
 }
 
 QInt Convert::BinToDec(bool* bin) {
-	int lengthOfbit = sizeof(bin) / (sizeof(*bin));
+	
 	QInt res;
 	for (int i = 127; i >= 0; i--) {
-		if (lengthOfbit >= 0) {
-			res.SetBit(i, bin[lengthOfbit--]);
-		}
-		else {
-			res.SetBit(i, 0);
-		}
+		res.SetBit(i, bin[i]);
 	}
 	return res;
 }
