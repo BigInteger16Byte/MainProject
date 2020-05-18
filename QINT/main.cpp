@@ -8,8 +8,6 @@ int main() {
 	cin >> x;
 	cin >> y;
 	cout << (x ^ y);
-		
-	return 0;
-	
-		
+
+	return 0;		
 }

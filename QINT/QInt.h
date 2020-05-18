@@ -1,10 +1,14 @@
 ﻿#pragma once
+
+/* Default lib */
 #include <stdio.h>
 #include <string>
 #include <iostream>
 using namespace std;
+
 #define BIT32 32   //4 byte
 #define LENGTH 4 // length of data
+
 /*
 Bitwise operator:
 SHL : <<
@@ -14,21 +18,60 @@ AND : &
 XOR : ^
 OR : |
 */
+
 class QInt {
 
 private:
 	int data[4];//Khởi tạo data 16 byte = 128 bit
+
 public:
+
+	/*               -----------------CONSTRUCTOR-----------------           */
+
 	QInt();
-	QInt& operator=(unsigned int x);
-	// đảo bit nhưng không làm thay đổi data(Trả về 1 giá trị mới)
-	QInt& operator~();
-	QInt operator^(QInt num);
-	bool GetBit(int vt);
-	void SetBit(int vt, bool bit);
+
+
+
+	/*               -----------------OVERLOADING-----------------           */
+
+	/* Opeartor overloading */
+	QInt& operator=(unsigned int);
 	
+	QInt& operator - (QInt const&); // friend QInt operator + (QInt const &, QInt const &);
+	QInt& operator / (QInt const&); // friend QInt operator / (QInt const &, QInt const &);
+
+	/* Shift */
+	QInt& operator << (unsigned int); // friend QInt operator + (QInt const &, QInt const &);
+
+	/* Rotate */
+	QInt rotateRight();	// Mỗi lần chỉ cần xoay 1 bit (Đề yêu cầu)
+
+	/* Bitwise */
+	QInt& operator~();  // đảo bit nhưng không làm thay đổi data(Trả về 1 giá trị mới)
+	QInt operator^(QInt);
+	QInt& operator&(QInt const&);
+	QInt& operator|(QInt const&);
+
+	/* IO Overloading */
+	friend ostream& operator<< (ostream&, const QInt);
+	friend istream& operator>>(istream&, QInt&);
 
 
-	friend ostream& operator<< (ostream& op, const QInt num);
-	friend istream& operator>>(istream& is, QInt& num);
+
+	/*               -------------------OTHERS-------------------           */
+
+	/* Supporter */
+	bool GetBit(int);
+	void SetBit(int, bool);
+
+	/* Output */
+	string toDecString();
+	string toBinaryString();
+	string toHexString();
+
+
+
+	/*               -----------------DESTRUCTOR-----------------           */
+
+	~QInt() {};
 };
