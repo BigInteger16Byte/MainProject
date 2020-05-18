@@ -35,7 +35,52 @@ QInt QInt::operator^(QInt num) {
 	return result;
 }
 
+QInt QInt::operator+(QInt num) {
+	QInt result;
+	result = 0;
+	int bitNho = 0; //Phep cong 2 bit thi bitNho toi da la 1
+	for (int i = 127; i >= 0; i--) {
+		int sum = this->GetBit(i) + num.GetBit(i) + bitNho;
+		if (sum == 0) {
+			bitNho = 0;
+			result.SetBit(i, 0);
+		}
+		else if (sum == 1) {
+			bitNho = 0;
+			result.SetBit(i, 1);
+		}
+		else if (sum == 2) {
+			bitNho = 1;
+			result.SetBit(i, 0);
+		}
+		else if (sum == 3) {
+			bitNho = 1;
+			result.SetBit(i, 1);
+		}
+	}
 
+	return result;
+}
+
+QInt QInt::operator*(QInt num) {
+	//Ap dung thuat toan nhan voi so khong dau(chuyen so co dau thanh khong dau)
+	bool bitNho = 0;
+	QInt A;
+	QInt temp = *this;
+	int k = 127; //So bit cua num
+	while (k >= 0) {
+		bool endBitQ = num.GetBit(k);
+		if (endBitQ == 1) {
+			A = A + temp;
+		}
+		//Shift left để mỗi lần nhân theo cột thì lần nhân tiếp theo dồn qua trái ( thuật toán nhân tiểu học )
+		//temp = temp << 1;
+		k = k - 1; //Nhan 1 so trong num roi thi chuyen sang so tiep theo
+	}
+
+	return A;
+	
+}
 
 bool QInt::GetBit(int vt) {
 	//Tìm ra giá trị index trong data
@@ -61,6 +106,14 @@ void QInt::SetBit(int vt, bool  bit) {
 	}
 }
 
+QInt QInt::operator>>(int num) {
+	QInt res;
+	res = 0;
+	for (int i = 0; i < LENGTH; i++) {
+		res.data[i] = this->data[i] >> num;
+	}
+	return res;
+}
 
 ostream& operator<<(ostream& out,  QInt num){
 	// TODO: insert return statement here

@@ -1,2 +1,7 @@
-﻿  main.cpp
-  QINT.vcxproj -> E:\QINT\Debug\QINT.exe
+﻿  Convert.cpp
+  QInt.cpp
+E:\QINT\QINT\QInt.cpp(77,19): error C2678: binary '<<': no operator found which takes a left-hand operand of type 'QInt' (or there is no acceptable conversion)
+E:\QINT\QINT\QInt.h(38,18): message : could be 'std::ostream &operator <<(std::ostream &,const QInt)' [found using argument-dependent lookup]
+E:\QINT\QINT\QInt.cpp(77,19): message : while trying to match the argument list '(QInt, int)'
+  main.cpp
+  Generating Code...

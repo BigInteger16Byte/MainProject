@@ -24,9 +24,14 @@ public:
 	// đảo bit nhưng không làm thay đổi data(Trả về 1 giá trị mới)
 	QInt& operator~();
 	QInt operator^(QInt num);
+	QInt operator+(QInt num);
+	QInt operator*(QInt num);
+	QInt operator>>(int num);  //note
+	//QInt operator>>(QInt num);
 	bool GetBit(int vt);
 	void SetBit(int vt, bool bit);
-	
+	//int getRealLength();
+	//void setRealLength(int length);
 
 
 	friend ostream& operator<< (ostream& op, const QInt num);
