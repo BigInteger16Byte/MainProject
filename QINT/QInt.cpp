@@ -82,6 +82,13 @@ QInt QInt::operator*(QInt num) {
 	
 }
 
+QInt QInt::operator=(const QInt& QInt) {
+	for (int i = 0; i < LENGTH; i++) {
+		this->data[i] = QInt.data[i];
+	}
+
+	return *this;
+}
 bool QInt::GetBit(int vt) {
 	//Tìm ra giá trị index trong data
 	int index = vt / BIT32;
@@ -126,4 +133,41 @@ istream& operator>>(istream& is, QInt& num) {
 	is >> temp;
 	num = Convert::StringNumberToQInt(temp);
 	return is;
+}
+
+
+bool* stringToBin(string str) { // Input là 1 chuỗi , chuyển nó thành bin và thêm 0 vào cho đủ 128
+
+	bool* bin = new bool[128];
+	if (str.length() > 128) {
+		cout << "tran so me roi kia" << endl;
+	}
+	int countBit = 127;
+	for (int i = str.length() - 1; i >= 0; i--) {
+		if (str[i] == '1')
+			bin[countBit] = 1;
+		else if (str[i] == '0')
+			bin[countBit] = 0;
+
+		countBit--;
+	}
+
+	while (countBit >= 0)
+	{
+		bin[countBit] = 0;
+		countBit--;
+	}
+
+	return bin;
+
+}
+
+string delete0(string str) {
+	int vt = 0;
+	for (vt = 0; vt < str.length(); vt++)
+	{
+		if (str[vt] != '0')
+			break;
+	}
+	return str.substr(vt);
 }
