@@ -12,8 +12,8 @@ public :
 	/*               -----------------CONVERTERS-----------------           */
 
 	/* BIN <-> DEC */
-	static bool* DecToBin(QInt);
-	static QInt BinToDec(bool*);
+	static string DecToBin(QInt);
+	static QInt BinToDec(string bin);
 	
 	/* BIN <-> HEX*/
 	static string BinToHex(bool*);

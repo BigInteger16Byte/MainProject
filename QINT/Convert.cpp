@@ -8,20 +8,28 @@ string Div2String(string num, bool& bit);
 
 
 
-bool* Convert::DecToBin(QInt num) {
-	bool* result = new bool[128];
-	for (int i = 127; i >= 0; i--) {
-		result[i] = num.GetBit(i);
+string Convert::DecToBin(QInt num) {
+	string result = "";
+	for (int i = 0; i <128; i++) {
+		if (num.GetBit(i) == 1) {
+			result += "1";
+		}
+		else if (num.GetBit(i)==0) {
+			result += "0";
+		}
 	}
 
 	return result;
 }
 
-QInt Convert::BinToDec(bool* bin) {
+QInt Convert::BinToDec(string bin) {
 	
 	QInt res;
 	for (int i = 127; i >= 0; i--) {
-		res.SetBit(i, bin[i]);
+		if(bin[i]=='0') 
+			res.SetBit(i, 0);
+		else if(bin[i]=='1') 
+			res.SetBit(i, 1);
 	}
 	return res;
 }

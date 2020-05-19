@@ -80,5 +80,5 @@ public:
 
 
 /*               -----------------MỘT SỐ HÀM HỖ TRỢ TRONG VIỆC INPUT OUTPUT(xóa 0 thừa , thêm 0 cho đủ 128bit)-----------------           */
-bool* stringToBin(string str); // Input là 1 chuỗi , chuyển nó thành bin và thêm 0 vào cho đủ 128
+bool* stringToBin(string str);//Tam thoi chua dung toi // Input là 1 chuỗi , chuyển nó thành bin và thêm 0 vào cho đủ 128
 string delete0(string str); //Khi convert ra string để output thì phải delete bớt 0
