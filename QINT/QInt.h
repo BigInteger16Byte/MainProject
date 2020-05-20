@@ -32,7 +32,6 @@ public:
 	QInt(string);
 
 
-
 	/*               -----------------OVERLOADING-----------------           */
 
 	/* Opeartor overloading */
@@ -40,6 +39,9 @@ public:
 	
 	QInt operator - (QInt const&); // friend QInt operator + (QInt const &, QInt const &);
 	QInt operator / (QInt const&); // friend QInt operator / (QInt const &, QInt const &);
+	//Q
+	//Int& operator - (QInt const&); // friend QInt operator + (QInt const &, QInt const &);
+	//QInt& operator / (QInt const&); // friend QInt operator / (QInt const &, QInt const &);
 
 	/* Shift  */
 	QInt& operator << (unsigned int); // friend QInt operator + (QInt const &, QInt const &);
@@ -52,6 +54,11 @@ public:
 	QInt operator^(QInt);
 	QInt operator&(QInt const&);
 	QInt operator|(QInt const&);
+
+	QInt operator+(QInt);
+	QInt operator*(QInt);
+	QInt operator>>(int);  //note
+	QInt operator=(const QInt&);
 
 	/* IO Overloading */
 	friend ostream& operator<< (ostream&, const QInt);
@@ -66,8 +73,12 @@ public:
 	void SetBit(int, bool);
 
 
-
 	/*               -----------------DESTRUCTOR-----------------           */
 
 	~QInt() {};
 };
+
+
+/*               -----------------MỘT SỐ HÀM HỖ TRỢ TRONG VIỆC INPUT OUTPUT(xóa 0 thừa , thêm 0 cho đủ 128bit)-----------------           */
+bool* stringToBin(string str);//Tam thoi chua dung toi // Input là 1 chuỗi , chuyển nó thành bin và thêm 0 vào cho đủ 128
+string delete0(string str); //Khi convert ra string để output thì phải delete bớt 0

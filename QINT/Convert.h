@@ -12,8 +12,8 @@ public :
 	/*               -----------------CONVERTERS-----------------           */
 
 	/* BIN <-> DEC */
-	static bool* DecToBin(QInt);
-	static QInt BinToDec(bool*);
+	static string DecToBin(QInt);
+	static QInt BinToDec(string bin);
 	
 	/* BIN <-> HEX*/
 	static string BinToHex(string);
@@ -33,3 +33,8 @@ public :
 	static string QIntToStringNumber(QInt); //support cho ham xuat
 	static QInt StringNumberToQInt(string); // support cho ham nhap
 };
+
+
+
+
+

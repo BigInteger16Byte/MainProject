@@ -8,20 +8,28 @@ string Div2String(string num, bool& bit);
 
 
 
-bool* Convert::DecToBin(QInt num) {
-	bool* result = new bool[128];
-	for (int i = 127; i >= 0; i--) {
-		result[i] = num.GetBit(i);
+string Convert::DecToBin(QInt num) {
+	string result = "";
+	for (int i = 0; i <128; i++) {
+		if (num.GetBit(i) == 1) {
+			result += "1";
+		}
+		else if (num.GetBit(i)==0) {
+			result += "0";
+		}
 	}
 
 	return result;
 }
-
-QInt Convert::BinToDec(bool* bin) {
+// Chổ này mà string bin ngắn hơn 128 kí tự là fail đó tân à
+QInt Convert::BinToDec(string bin) {
 	
 	QInt res;
 	for (int i = 127; i >= 0; i--) {
-		res.SetBit(i, bin[i]);
+		if(bin[i]=='0') 
+			res.SetBit(i, 0);
+		else if(bin[i]=='1') 
+			res.SetBit(i, 1);
 	}
 	return res;
 }
@@ -33,6 +41,19 @@ QInt Convert::BinToDec(bool* bin) {
  */
 string Convert::BinToHex(string bin)
 {
+	// Trim số 0 ở đầu:
+	for (int i = 0; i < bin.length(); i++) {
+		if (bin[0]=='1') {
+			break;
+		}
+		bin = bin.substr(1);
+		i--;
+	}
+
+	// Trường hợp bin = "";
+	if(bin.length() == 0 || bin.length() == 1)
+		return "";
+
 	string hexArr[16] = { "0","1","2","3","4","5","6","7","8","9","A","B","C","D","E","F" };
 
 	string result = "";
@@ -52,7 +73,6 @@ string Convert::BinToHex(string bin)
 
 		result += hexArr[surplus];
 		surplus = 0; // Reset lại biến
-
 	}
 
 	reverse(result.begin(), result.end());
@@ -84,6 +104,19 @@ string Convert::HexToBin(string hex)
 		}
 	}
 
+	// Trim số 0 ở đầu:
+	for (int i = 0; i < result.length(); i++) {
+		if (result[0] == '1') {
+			break;
+		}
+		result = result.substr(1);
+		i--;
+	}
+
+	// Trường hợp result = "";
+	if (result.length() == 0 || result.length() == 1)
+		return "";
+
 	return (string)(result);
 }
 
@@ -92,15 +125,15 @@ string Convert::HexToBin(string hex)
  * Tham số đầu vào: string hex tùy ý (truthy) không bao gồm dấu -
  * Output: một QInt biểu diễn số hex đó
 */
-//QInt Convert::HexToDec(string hex)
-//{
-//	/* HEX -> DEC: ta không nhất thiết phải chuyển trực tiếp mà thay vào đó ta tận dụng tài nguyên sẵn có */
-//
-//	string bin = Convert::HexToBin(hex);  // Chuyển HEX -> BIN
-//	QInt dec = Convert::BinToDec(bin);	 // Chuyển BIN -> DEC
-//
-//	return QInt(dec);
-//}
+QInt Convert::HexToDec(string hex)
+{
+	/* HEX -> DEC: ta không nhất thiết phải chuyển trực tiếp mà thay vào đó ta tận dụng tài nguyên sẵn có */
+
+	string bin = Convert::HexToBin(hex);  // Chuyển HEX -> BIN
+	QInt dec = Convert::BinToDec(bin);	 // Chuyển BIN -> DEC
+
+	return QInt(dec);
+}
 
 /**
  * Chuyển đổi dãy số Dec sang hệ Hex
@@ -111,16 +144,16 @@ string Convert::DecToHex(QInt dec)
 {
 	/* DEC -> HEX: ta không nhất thiết phải chuyển trực tiếp mà thay vào đó ta tận dụng tài nguyên sẵn có */
 
-	bool* bin = Convert::DecToBin(dec);  // Chuyển DEC -> BIN
-	//string hex = Convert::BinToHex(bin);	 // Chuyển BIN -> HEX
+	string bin = Convert::DecToBin(dec);  // Chuyển DEC -> BIN
+	string hex = Convert::BinToHex(bin);	 // Chuyển BIN -> HEX
 
-	return string("hex");
+	return string(hex);
 }
 
 QInt Convert::ToBu2(QInt num) {
 	QInt result;
 	result = 0;
-	result = ~num;;
+	result = ~num;
 	//+1 de chuyen sang bu 2
 	int bitNho = 1;
 	for (int i = 127; i >= 0; i--) {
