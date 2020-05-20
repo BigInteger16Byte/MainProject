@@ -26,6 +26,97 @@ QInt Convert::BinToDec(bool* bin) {
 	return res;
 }
 
+/**
+ * Chuyển đổi dãy số nhị phân thành mã hex
+ * Tham số đầu vào: string tối đa 128 kí tự không bao gồm dấu -
+ * Output: một string hex nhỏ nhất vừa đủ biểu diễn chuổi bin
+ */
+string Convert::BinToHex(string bin)
+{
+	string hexArr[16] = { "0","1","2","3","4","5","6","7","8","9","A","B","C","D","E","F" };
+
+	string result = "";
+
+	int surplus = 0; /* Lưu trữ số dư khi gom nhóm 4 bit và mod 16 */
+
+	for (int i = bin.length() - 1; i >= 0; i -= 4) {
+
+		/* Gom mỗi lần 4 bit lưu vào biến surplus */
+		for (int j = 0; j < 4; j++) {
+			if ((i - j) >= 0) {
+				surplus += (bin[i - j] - '0') * (int)pow(2, j);
+			}
+		}
+
+		surplus %= 16; // Lấy phần dư khi mod 16 đồng thời nó là index của hexArr
+
+		result += hexArr[surplus];
+		surplus = 0; // Reset lại biến
+
+	}
+
+	reverse(result.begin(), result.end());
+	return string(result);
+}
+
+/**
+ * Chuyển đổi dãy số hex thành mã nhị phân
+ * Tham số đầu vào: string hex tùy ý (truthy) không bao gồm dấu -
+ * Output: một string Bin vừa đủ của chuổi hex
+*/
+string Convert::HexToBin(string hex)
+{
+	string binArr[16] = { "0000","0001","0010","0011","0100","0101","0110","0111","1000","1001","1010","1011","1100","1101","1110","1111" };
+
+	// result chứa string trung gian, pointer res trả về
+	string result = ""; 
+	bool* res = new bool[128];
+
+	/* Chuyển từng kí tự của chuổi Hex thành 4-bit binary */
+	for (int i = 0; i < hex.length(); i++) {
+		// TH kí tự là số 0 -> 9
+		if (hex[i] >= '0' && hex[i] <= '9') {
+			result += binArr[hex[i] - '0'];
+		}
+		// TH kí tự là chử cái A -> F
+		else {
+			result += binArr[hex[i] - 55]; // const 55 ta có thể xem bảng mã ASCII mục đích A:65 -> cần lấy index 10 của arr nên sub 55
+		}
+	}
+
+	return (string)(result);
+}
+
+/**
+ * Chuyển đổi dãy số Hex sang hệ dec
+ * Tham số đầu vào: string hex tùy ý (truthy) không bao gồm dấu -
+ * Output: một QInt biểu diễn số hex đó
+*/
+//QInt Convert::HexToDec(string hex)
+//{
+//	/* HEX -> DEC: ta không nhất thiết phải chuyển trực tiếp mà thay vào đó ta tận dụng tài nguyên sẵn có */
+//
+//	string bin = Convert::HexToBin(hex);  // Chuyển HEX -> BIN
+//	QInt dec = Convert::BinToDec(bin);	 // Chuyển BIN -> DEC
+//
+//	return QInt(dec);
+//}
+
+/**
+ * Chuyển đổi dãy số Dec sang hệ Hex
+ * Tham số đầu vào: QInt
+ * Output: một string Hex biểu diễn số QInt đó
+*/
+string Convert::DecToHex(QInt dec)
+{
+	/* DEC -> HEX: ta không nhất thiết phải chuyển trực tiếp mà thay vào đó ta tận dụng tài nguyên sẵn có */
+
+	bool* bin = Convert::DecToBin(dec);  // Chuyển DEC -> BIN
+	//string hex = Convert::BinToHex(bin);	 // Chuyển BIN -> HEX
+
+	return string("hex");
+}
+
 QInt Convert::ToBu2(QInt num) {
 	QInt result;
 	result = 0;

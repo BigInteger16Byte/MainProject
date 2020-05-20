@@ -16,8 +16,8 @@ public :
 	static QInt BinToDec(bool*);
 	
 	/* BIN <-> HEX*/
-	static string BinToHex(bool*);
-	static QInt HexToBin(string);
+	static string BinToHex(string);
+	static string HexToBin(string);
 	
 	/* HEX<-> DEC */
 	static QInt HexToDec(string);
