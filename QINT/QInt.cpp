@@ -31,61 +31,128 @@ QInt::QInt(){
 }
 
 /**
- * Constructor (string)
- * Uses: ("1234") or ("-1234")
- */
-QInt::QInt(string dec)
+ * Constructor (string, int flag)		// flag = 0 (default): String src type Dec
+ * Tat ca deu chuyen ve bool*			// flag = 1: String src type Bin
+ */										// flag = 2: String src type Hex
+
+QInt::QInt(string src, int flag)
 {
-	string clone = dec; // Clone dec
+	string clone = src; // Clone dec
 	bool* bin = new bool[128]; // Dummy arr
 
-	// Nếu string là số âm thì tạm tách bỏ để tính
-	if (dec[0] == '-') {
-		clone = clone.substr(1);
-	}
+	bool isNegativeNumber = false;
 
-	// Biến đếm xem sau bao nhiêu lần chia string clone / 2 thì string clone thành ""
-	int count = 0;
+	switch (flag) {
+		case 0: { // src vao la chuoi Dec
 
-	bool surPlus; // Số dư mỗi lần chia
+			int count = 0; // Biến đếm xem sau bao nhiêu lần chia string clone / 2 thì string clone thành ""
+			bool surPlus; // Số dư mỗi lần chia
 
-	// Chia 2 liên tục và lưu số dư vào vị trí tương ứng arr dummy
-	while (clone.length() != 0) {
-		clone = div2String(clone, surPlus);
-		bin[127 - count] = surPlus;
-		count++;
-	}
+			// Nếu string là số âm thì tạm tách bỏ để tính
+			if (src[0] == '-') {
+				clone = clone.substr(1);
+				isNegativeNumber = true;
+			}
 
-	// Khi số lần lặp không đủ chiều dài ar dummy thì thêm 0 vào 
-	for (int i = 127 - count; i >= 0; i--) {
-		bin[i] = 0;
-	}
+			// Chia 2 liên tục và lưu số dư vào vị trí tương ứng arr dummy
+			while (clone.length() != 0) {
+				clone = div2String(clone, surPlus);
+				bin[127 - count] = surPlus;
+				count++;
+			}
 
-	// Setbit cho con trỏ this
-	for (int i = 0; i < 4; i++) {
-		for (int j = 0; j < 32; j++) {
-			this->SetBit(i * 32 + j, bin[i * 32 + j]);
+			// Khi số lần lặp không đủ chiều dài ar dummy thì thêm 0 vào 
+			for (int i = 127 - count; i >= 0; i--) {
+				bin[i] = 0;
+			}
+
+			// Setbit cho con trỏ this
+			for (int i = 0; i < 4; i++) {
+				for (int j = 0; j < 32; j++) {
+					this->SetBit(i * 32 + j, bin[i * 32 + j]);
+				}
+			}
+
+			// Nếu là số âm thì ta lưu dưới dạng bù 2
+			if (isNegativeNumber) {
+				*this = Convert::ToBu2(*this);
+			}
+
+			/*cout << "Sau bu 2" << endl;
+			for (int i = 0; i < 128; i++) {
+				cout << this->GetBit(i);
+			}
+			cout << endl;*/
+
+			break;
 		}
-	}
-	/*cout << "Truoc bu 2" << endl;
-	for (int i = 0; i < 128; i++) {
-		cout << bin[i];
-	}
-	cout << endl;*/
+		case 1: { // Truong hop src vao la string Bin
 
-	// Nếu là số âm thì ta lưu dưới dạng bù 2
-	if (dec[0] == '-') {
-		*this = Convert::ToBu2(*this);
-	}
-<<<<<<< HEAD
+			bool addHead = 0;
+			
+			int len = src.length();
 
-	//cout << "Sau bu 2" << endl;
-	//for (int i = 0; i < 128; i++) {
-	//	cout << this->GetBit(i);
-	//}
-	//cout << endl;
-=======
->>>>>>> e114dd95f3b907cabc86331641e0b264a2c4d05d
+			// Neu string chua du 128 bit length thi them so 0 or 1 vao dau
+			for (int i = 0; i < 128 - len; i++) {
+				bin[i] = addHead;
+			}
+
+			// Gan src vao khuc sau cua Bin
+			for (int i = 128 - len; i < 128; i++) {
+				bin[i] = (src[i - 128 + len] == '0') ? 0 : 1;
+			}
+
+			// Setbit cho con trỏ this
+			for (int i = 0; i < 4; i++) {
+				for (int j = 0; j < 32; j++) {
+					this->SetBit(i * 32 + j, bin[i * 32 + j]);
+				}
+			}
+
+			/*cout << "Sau bu 2" << endl;
+			for (int i = 0; i < 128; i++) {
+				cout << this->GetBit(i);
+			}
+			cout << endl;*/
+
+			break;
+		}
+		case 2: { // Truong hop src vao la string Hex
+
+			// Vi khong co dinh nghi so Hex am duong nen ta chuyn Hec thanh Bin va khong quan tam dau
+			string binary = Convert::HexToBin(src);
+
+			int len = binary.length();
+
+			// Neu string chua du 128 bit length thi them so 0 or 1 vao dau
+			for (int i = 0; i < 128 - len; i++) {
+				bin[i] = 0;
+			}
+
+			// Gan binary vao
+			for (int i = 128 - len; i < 128; i++) {
+				bin[i] = binary[i - (128 - len)] == '0' ? 0 : 1;
+			}
+
+			// Setbit cho con trỏ this
+			for (int i = 0; i < 4; i++) {
+				for (int j = 0; j < 32; j++) {
+					this->SetBit(i * 32 + j, bin[i * 32 + j]);
+				}
+			}
+
+			//cout << "Sau bu 2" << endl;
+			//for (int i = 0; i < 128; i++) {
+			//	cout << this->GetBit(i);
+			//}
+			//cout << endl;
+
+			break;
+		}
+
+		default:
+			*this = QInt("");
+	}
 }
 
 QInt& QInt::operator =(unsigned int x) {
@@ -96,14 +163,7 @@ QInt& QInt::operator =(unsigned int x) {
 	return *this;
 }
 
-<<<<<<< HEAD
 QInt QInt::operator~() {
-
-	QInt res;
-=======
-// Tui sua Func nay roi nha Tan. ong xem lai di
-QInt QInt::operator~() {
->>>>>>> e114dd95f3b907cabc86331641e0b264a2c4d05d
 
 	QInt res;
 	res = 0;
@@ -263,7 +323,7 @@ istream& operator>>(istream& is, QInt& num) {
 
 
 
-
+// Tui vua update constructor co the tao QInt tu String Dec (-, +), string Bin, string Hex	:==D
 
 
 //Tam thoi chua dung den

@@ -29,7 +29,7 @@ public:
 	/*               -----------------CONSTRUCTOR-----------------           */
 
 	QInt();
-	QInt(string);
+	QInt(string, int = 0);
 
 
 	/*               -----------------OVERLOADING-----------------           */
