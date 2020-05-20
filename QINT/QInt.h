@@ -8,6 +8,7 @@ using namespace std;
 
 #define BIT32 32   //4 byte
 #define LENGTH 4 // length of data
+#define SIZE 128
 
 /*
 Bitwise operator:
