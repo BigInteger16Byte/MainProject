@@ -47,7 +47,5 @@ int main() {
 
 	Convert::DecToHex(*a);*/
 
-	cout << Convert::BinToHex("1111111111111011");
-
 	return 0;		
 }

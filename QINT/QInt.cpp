@@ -30,6 +30,10 @@ QInt::QInt(){
 	}
 }
 
+/**
+ * Constructor (string)
+ * Uses: ("1234") or ("-1234")
+ */
 QInt::QInt(string dec)
 {
 	string clone = dec; // Clone dec
@@ -69,10 +73,9 @@ QInt::QInt(string dec)
 		*this = Convert::ToBu2(*this);
 	}
 
-
-	for (int i = 0; i < 128; i++) {
-		cout << this->GetBit(i);
-	}
+	//for (int i = 0; i < 128; i++) {
+	//	cout << this->GetBit(i);
+	//}
 }
 
 QInt& QInt::operator =(unsigned int x) {
