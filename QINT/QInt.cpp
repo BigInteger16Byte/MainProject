@@ -67,20 +67,22 @@ QInt::QInt(string dec)
 			this->SetBit(i * 32 + j, bin[i * 32 + j]);
 		}
 	}
-
-	/*for (int i = 0; i < 128; i++) {
+	/*cout << "Truoc bu 2" << endl;
+	for (int i = 0; i < 128; i++) {
 		cout << bin[i];
-	}*/
+	}
+	cout << endl;*/
 
 	// Nếu là số âm thì ta lưu dưới dạng bù 2
 	if (dec[0] == '-') {
 		*this = Convert::ToBu2(*this);
 	}
 
-	/*for (int i = 0; i < 128; i++) {
-		cout << this->GetBit(i);
-	}
-	cout << endl;*/
+	//cout << "Sau bu 2" << endl;
+	//for (int i = 0; i < 128; i++) {
+	//	cout << this->GetBit(i);
+	//}
+	//cout << endl;
 }
 
 QInt& QInt::operator =(unsigned int x) {
@@ -91,29 +93,15 @@ QInt& QInt::operator =(unsigned int x) {
 	return *this;
 }
 
-// Tui sua Func nay roi nha Tan. ong xem lai di
-QInt& QInt::operator~() {
+QInt QInt::operator~() {
 
-	/*QInt res;
+	QInt res;
 
 	for (int i = 0; i < LENGTH; i++) {
 		res.data[i] = ~this->data[i];
 	}
 
-	return res;*/
-
-	QInt *res = new QInt("");
-
-	for (int i = 0; i < 128; i++) {
-		if (this->GetBit(i)) {
-			res->SetBit(i, 0);
-		}
-		else {
-			res->SetBit(i, 1);
-		}
-	}
-
-	return *res;
+	return res;
 }
 
 QInt QInt::operator^(QInt num) {

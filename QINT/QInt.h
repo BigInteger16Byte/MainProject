@@ -50,7 +50,7 @@ public:
 	QInt& rotateRight();	// Mỗi lần chỉ cần xoay 1 bit (Đề yêu cầu)
 
 	/* Bitwise */
-	QInt& operator~();  // đảo bit nhưng không làm thay đổi data(Trả về 1 giá trị mới)
+	QInt operator~();  // đảo bit nhưng không làm thay đổi data(Trả về 1 giá trị mới)
 	QInt operator^(QInt);
 	QInt operator&(QInt const&);
 	QInt operator|(QInt const&);

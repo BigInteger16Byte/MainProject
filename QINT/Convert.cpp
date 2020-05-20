@@ -130,6 +130,13 @@ QInt Convert::HexToDec(string hex)
 	/* HEX -> DEC: ta không nhất thiết phải chuyển trực tiếp mà thay vào đó ta tận dụng tài nguyên sẵn có */
 
 	string bin = Convert::HexToBin(hex);  // Chuyển HEX -> BIN
+	
+	string chainZero = "";
+	for (int i = 0; i < 128 - bin.length(); i++) {
+		chainZero += "0";
+	}
+	bin = chainZero + bin;
+	
 	QInt dec = Convert::BinToDec(bin);	 // Chuyển BIN -> DEC
 
 	return QInt(dec);
