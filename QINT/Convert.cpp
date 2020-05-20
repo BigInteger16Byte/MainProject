@@ -18,7 +18,6 @@ string Convert::DecToBin(QInt num) {
 			result += "0";
 		}
 	}
-
 	return result;
 }
 // Chổ này mà string bin ngắn hơn 128 kí tự là fail đó tân à

@@ -44,7 +44,8 @@ public:
 	//QInt& operator / (QInt const&); // friend QInt operator / (QInt const &, QInt const &);
 
 	/* Shift  */
-	QInt& operator << (unsigned int); // friend QInt operator + (QInt const &, QInt const &);
+	QInt operator << (unsigned int); // friend QInt operator + (QInt const &, QInt const &);
+	QInt operator >> (unsigned int);  //note
 
 	/* Rotate */
 	QInt& rotateRight();	// Mỗi lần chỉ cần xoay 1 bit (Đề yêu cầu)
@@ -57,7 +58,6 @@ public:
 
 	QInt operator+(QInt);
 	QInt operator*(QInt);
-	QInt operator>>(int);  //note
 	QInt operator=(const QInt&);
 
 	/* IO Overloading */

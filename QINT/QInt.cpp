@@ -77,12 +77,15 @@ QInt::QInt(string dec)
 	if (dec[0] == '-') {
 		*this = Convert::ToBu2(*this);
 	}
+<<<<<<< HEAD
 
 	//cout << "Sau bu 2" << endl;
 	//for (int i = 0; i < 128; i++) {
 	//	cout << this->GetBit(i);
 	//}
 	//cout << endl;
+=======
+>>>>>>> e114dd95f3b907cabc86331641e0b264a2c4d05d
 }
 
 QInt& QInt::operator =(unsigned int x) {
@@ -93,10 +96,17 @@ QInt& QInt::operator =(unsigned int x) {
 	return *this;
 }
 
+<<<<<<< HEAD
 QInt QInt::operator~() {
 
 	QInt res;
+=======
+// Tui sua Func nay roi nha Tan. ong xem lai di
+QInt QInt::operator~() {
+>>>>>>> e114dd95f3b907cabc86331641e0b264a2c4d05d
 
+	QInt res;
+	res = 0;
 	for (int i = 0; i < LENGTH; i++) {
 		res.data[i] = ~this->data[i];
 	}
@@ -225,7 +235,9 @@ void QInt::SetBit(int vt, bool  bit) {
 	}
 }
 
-QInt QInt::operator>>(int num) {
+QInt QInt::operator>>(unsigned int num) {
+
+	//CAI NAY SAI ME R
 	QInt res;
 	res = 0;
 	for (int i = 0; i < LENGTH; i++) {
@@ -248,6 +260,13 @@ istream& operator>>(istream& is, QInt& num) {
 }
 
 
+
+
+
+
+
+
+//Tam thoi chua dung den
 bool* stringToBin(string str) { // Input là 1 chuỗi , chuyển nó thành bin và thêm 0 vào cho đủ 128
 
 	bool* bin = new bool[128];
