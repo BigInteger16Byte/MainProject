@@ -44,20 +44,20 @@ public:
 	//QInt& operator / (QInt const&); // friend QInt operator / (QInt const &, QInt const &);
 
 	/* Shift  */
-	QInt& operator << (unsigned int); // friend QInt operator + (QInt const &, QInt const &);
+	QInt operator << (unsigned int); // friend QInt operator + (QInt const &, QInt const &);
+	QInt operator >> (unsigned int);  //note
 
 	/* Rotate */
 	QInt& rotateRight();	// Mỗi lần chỉ cần xoay 1 bit (Đề yêu cầu)
 
 	/* Bitwise */
-	QInt& operator~();  // đảo bit nhưng không làm thay đổi data(Trả về 1 giá trị mới)
+	QInt operator~();  // đảo bit nhưng không làm thay đổi data(Trả về 1 giá trị mới)
 	QInt operator^(QInt);
 	QInt operator&(QInt const&);
 	QInt operator|(QInt const&);
 
 	QInt operator+(QInt);
 	QInt operator*(QInt);
-	QInt operator>>(int);  //note
 	QInt operator=(const QInt&);
 
 	/* IO Overloading */

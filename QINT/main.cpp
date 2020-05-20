@@ -1,15 +1,18 @@
-#include"QInt.h"
+﻿#include"QInt.h"
 #include"Convert.h"
 #include<iostream>
 using namespace std;
 
-int main() {
-	string test = Convert::HexToBin("DB6227CE935D04010E3C3");
+//hàm này để in ra dãy 128 bit để test
+void testBit(QInt x) {
+	for (int i = 0; i < 128; i++) {
+		cout << x.GetBit(i);
+		if ((i+1)%32==0)  cout << endl;
+	}
+	cout << endl;
+}
 
-	if (test == "110110110110001000100111110011101001001101011101000001000000000100001110001111000011") {
-		cout << "tu";
-	}
-	else {
-		cout << "fal";
-	}
+
+int main() {
+
 }
