@@ -1,5 +1,13 @@
+<<<<<<< HEAD
 .vs
 /Debug
 /x64
 /QInt/Debug
 /QInt/x64
+=======
+.vs/
+/x64
+/Debug
+/QInt/Debug
+/QInt/x64
+>>>>>>> 008b9492db9d0b382de7af01a69884517a755388
