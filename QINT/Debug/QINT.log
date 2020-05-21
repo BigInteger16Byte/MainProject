@@ -1,7 +1,0 @@
-﻿  QInt.cpp
-E:\QINT\QINT\QInt.cpp(322,20): warning C4018: '<': signed/unsigned mismatch
-E:\QINT\QINT\QInt.cpp(341,20): warning C4018: '<': signed/unsigned mismatch
-E:\QINT\QINT\QInt.cpp(402,18): warning C4018: '<': signed/unsigned mismatch
-  main.cpp
-  Generating Code...
-  QINT.vcxproj -> E:\QINT\Debug\QINT.exe
