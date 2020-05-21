@@ -291,10 +291,68 @@ QInt QInt::operator-(QInt num)
 
 		// Reset sum
 		sum = 0;
-		cout << this->GetBit(i);
 	}
 
 	return QInt(*this);
+}
+
+QInt QInt::operator/(QInt num)
+{
+	string A(128, '0'); // Contain surplus (số dư)
+
+	if (this->GetBit(0)) {
+		string A(128, '1'); // Contain surplus (số dư)
+	}
+
+	string Q = Convert::DecToBin(*this); // Contain quotient (thương)
+
+	int k = 128; // Number of loop (k = n)
+
+	int countFlagNegativeNumber = 0; // Đếm xem 2 số a và b có bao nhiêu số âm
+
+	// Nếu số chia hoặc bị chia là số âm thì cứ chuyển nó về số dương và thực hiện phép tính. Sau đó mới quan tâm dấu trả về
+
+	if (Q[0] == '1') {
+		countFlagNegativeNumber++;
+		Q = Convert::DecToBin(Convert::ToBu2(*this));
+	}
+
+	if(num.GetBit(0)) {
+		countFlagNegativeNumber++;
+		num = Convert::ToBu2(num);
+	}
+
+ 	while (k > 0) {
+		
+		// Dịch trái A:
+		A += Q[0];
+		A = A.substr(1);
+
+		// Dịch trái Q:
+		Q += "0";
+		Q = Q.substr(1);
+
+		// A - M:
+		A = Convert::DecToBin(QInt(A, 1) - num);
+
+		if (A[0] == '1') { // Nếu A - M < 0 thì gán lại kí tự cuối cùng của Qo = 0 và A = A + M;
+			Q[127] = '0';
+			A = Convert::DecToBin(QInt(A, 1) + num);
+		} 
+		// Ngược lại thì gán Qo = 1;
+		else {
+			Q[127] = '1';
+		}
+		
+		k--;
+	}
+
+	// Kiểm tra dấu trả về:
+	if (countFlagNegativeNumber % 2) {
+		return QInt(Convert::ToBu2(QInt(Q, 1)));
+	}
+
+	return QInt(QInt(Q, 1));
 }
 
 bool QInt::GetBit(int vt) {
@@ -321,7 +379,6 @@ void QInt::SetBit(int vt, bool  bit) {
 	}
 }
 
-<<<<<<< HEAD
 QInt QInt::operator<<(unsigned int num)
 {
 	// Convert *this -> string Bin
@@ -346,10 +403,7 @@ QInt QInt::operator<<(unsigned int num)
 	return QInt(*this);
 }
 
-QInt QInt::operator>>(unsigned int num) {
-=======
 QInt QInt::operator >>(unsigned int offset) {
->>>>>>> 566098a38d5df51f3df1a74dc33946d9c829ff34
 
 	//CAI NAY SAI ME R
 	QInt res = *this;
@@ -364,6 +418,21 @@ QInt QInt::operator >>(unsigned int offset) {
 	}
 	
 	return res;
+}
+
+QInt QInt::rotateRight()
+{
+	string bin = Convert::DecToBin(*this);
+
+	string endChar = bin.substr(bin.length() - 1);
+
+	bin = endChar + bin;
+
+	for (int i = 0; i < 128; i++) {
+		this->SetBit(i, bin[i] == '0' ? 0 : 1);
+	}
+
+	return QInt();
 }
 
 ostream& operator<<(ostream& out,  QInt num){

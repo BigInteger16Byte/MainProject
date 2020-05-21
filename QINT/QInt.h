@@ -43,7 +43,7 @@ public:
 	QInt operator >> (unsigned int);  //note
 
 	/* Rotate */
-	QInt& rotateRight();	// Mỗi lần chỉ cần xoay 1 bit (Đề yêu cầu)
+	QInt rotateRight();	// Mỗi lần chỉ cần xoay 1 bit (Đề yêu cầu)
 
 	/* Bitwise */
 	QInt operator~();  // đảo bit nhưng không làm thay đổi data(Trả về 1 giá trị mới)
