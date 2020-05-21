@@ -178,6 +178,8 @@ QInt Convert::ToBu2(QInt num) {
 	return result;
 }
 
+// Cái này vip nè	:==D		Chổ này thêm TH nếu là chuổi toàn 0 thì trả về 0 nha Tân. (đang trả về "" ák)
+
 string Convert::QIntToStringNumber(QInt x) {
 	string result = "";
 	//Kiểm tra bit đầu

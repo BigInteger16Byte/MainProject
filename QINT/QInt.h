@@ -29,22 +29,16 @@ public:
 	/*               -----------------CONSTRUCTOR-----------------           */
 
 	QInt();
-	QInt(string, int = 0);
+	QInt(string, int = 0); // Xem cmt
 
 
 	/*               -----------------OVERLOADING-----------------           */
 
 	/* Opeartor overloading */
 	QInt& operator=(unsigned int);
-	
-	QInt operator - (QInt const&); // friend QInt operator + (QInt const &, QInt const &);
-	QInt operator / (QInt const&); // friend QInt operator / (QInt const &, QInt const &);
-	//Q
-	//Int& operator - (QInt const&); // friend QInt operator + (QInt const &, QInt const &);
-	//QInt& operator / (QInt const&); // friend QInt operator / (QInt const &, QInt const &);
 
 	/* Shift  */
-	QInt operator << (unsigned int); // friend QInt operator + (QInt const &, QInt const &);
+	QInt operator << (unsigned int);
 	QInt operator >> (unsigned int);  //note
 
 	/* Rotate */
@@ -59,6 +53,8 @@ public:
 	QInt operator+(QInt);
 	QInt operator*(QInt);
 	QInt operator=(const QInt&);
+	QInt operator - (QInt);
+	QInt operator / (QInt);
 
 	/* IO Overloading */
 	friend ostream& operator<< (ostream&, const QInt);

@@ -271,6 +271,32 @@ QInt QInt::operator=(const QInt& QInt) {
 
 	return *this;
 }
+
+/**
+ * Để trừ 2 a - b ta chuyển thành a + (-b)
+ */
+QInt QInt::operator-(QInt num)
+{
+	// Chuyen so b sang bu 2 de the hien so am va tien hanh cong voi a
+	QInt numBu2 = Convert::ToBu2(num);
+
+	int remain = 0; // So du
+	int sum = 0;	// Temporary sum
+
+	for (int i = 127; i >= 0; i--) {
+		sum = this->GetBit(i) + numBu2.GetBit(i) + remain;
+
+		this->SetBit(i, sum % 2);	// Set bit tai vi tri i la so du cua sum voi 2
+		remain = sum / 2;			// Bien nho la so nguyen cua sum voi 2
+
+		// Reset sum
+		sum = 0;
+		cout << this->GetBit(i);
+	}
+
+	return QInt(*this);
+}
+
 bool QInt::GetBit(int vt) {
 	//Tìm ra giá trị index trong data
 	int index = vt / BIT32;
@@ -293,6 +319,30 @@ void QInt::SetBit(int vt, bool  bit) {
 	else {
 		data[index] = ~(1 << indexbit) & data[index];
 	}
+}
+
+QInt QInt::operator<<(unsigned int num)
+{
+	// Convert *this -> string Bin
+	string bin = Convert::DecToBin(*this);
+
+	string header = bin.substr(0, num); // cat phan header roi chuyen thah 0 xong noi vao duoi
+	bin = bin.substr(num);
+
+	// Convert header -> string 0
+	for (int i = 0; i < header.length(); i++) {
+		header[i] = '0';
+	}
+
+	// Noi phan strong 0 vao duoi
+	bin += header;
+
+	// Dat lai bit
+	for (int i = 0; i < 128; i++) {
+		this->SetBit(i, bin[i] == '0' ? 0 : 1);
+	}
+
+	return QInt(*this);
 }
 
 QInt QInt::operator>>(unsigned int num) {

@@ -12,20 +12,15 @@ void testBit(QInt x) {
 	cout << endl;
 }
 
+// Kiểm tra tràn số đầu vào
+// Chuổi Bin dài hơn 128 kí tự
+// Chuổi Dec dài hơn 39 kí tự or bằng 38 và lớn hơn chuổi "170141183460469231731687303715884105727" (so sánh chuổi 2^127 - 1)
+// Chuổi Hex dài hơn 32 kí tự or bằng 32 và lớn hơn chuổi "7FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF"
+
 
 int main() {
-	/*string test = Convert::HexToBin("DB6227CE935D04010E3C3");
+	/*double c = pow(2,127);
 
-	if (test == "110110110110001000100111110011101001001101011101000001000000000100001110001111000011") {
-		cout << "tu";
-	}
-	else {
-		cout << "fal";
-	}*/
-
-	//cout << Convert::HexToDec("A99FDF503E1DD54FCB92B24BE16A52FC");
-
-	//-114812731097961891092328483067729915140
-
-	QInt *a = new QInt("10001011", 1);
+	string k = to_string(c);
+	cout << k;*/
 }

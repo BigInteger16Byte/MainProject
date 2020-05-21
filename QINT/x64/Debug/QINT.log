@@ -1,16 +1,2 @@
-﻿  Convert.cpp
-F:\Online Courses\KTMT-HN\Project01\clone\MainProject\QINT\Convert.cpp(62,35): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
-F:\Online Courses\KTMT-HN\Project01\clone\MainProject\QINT\Convert.cpp(234,27): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
-F:\Online Courses\KTMT-HN\Project01\clone\MainProject\QINT\Convert.cpp(235,27): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
-F:\Online Courses\KTMT-HN\Project01\clone\MainProject\QINT\Convert.cpp(264,28): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
-F:\Online Courses\KTMT-HN\Project01\clone\MainProject\QINT\Convert.cpp(276,27): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
-F:\Online Courses\KTMT-HN\Project01\clone\MainProject\QINT\Convert.cpp(292,33): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
-F:\Online Courses\KTMT-HN\Project01\clone\MainProject\QINT\Convert.cpp(318,27): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
-  main.cpp
-  QInt.cpp
-F:\Online Courses\KTMT-HN\Project01\clone\MainProject\QINT\QInt.cpp(11,27): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
-F:\Online Courses\KTMT-HN\Project01\clone\MainProject\QINT\QInt.cpp(93,26): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
-F:\Online Courses\KTMT-HN\Project01\clone\MainProject\QINT\QInt.cpp(125,29): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
-F:\Online Courses\KTMT-HN\Project01\clone\MainProject\QINT\QInt.cpp(337,35): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
-  Generating Code...
+﻿  main.cpp
   QINT.vcxproj -> F:\Online Courses\KTMT-HN\Project01\clone\MainProject\x64\Debug\QINT.exe
