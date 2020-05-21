@@ -223,22 +223,8 @@ QInt QInt::operator +(QInt num) {
 	int bitNho = 0; //Phep cong 2 bit thi bitNho toi da la 1
 	for (int i = 127; i >= 0; i--) {
 		int sum = this->GetBit(i) + num.GetBit(i) + bitNho;
-		if (sum == 0) {
-			bitNho = 0;
-			result.SetBit(i, 0);
-		}
-		else if (sum == 1) {
-			bitNho = 0;
-			result.SetBit(i, 1);
-		}
-		else if (sum == 2) {
-			bitNho = 1;
-			result.SetBit(i, 0);
-		}
-		else if (sum == 3) {
-			bitNho = 1;
-			result.SetBit(i, 1);
-		}
+		result.SetBit(i, sum % 2);	// Set bit tai vi tri i la so du cua sum voi 2
+		bitNho = sum / 2;
 	}
 
 	return result;
@@ -249,6 +235,10 @@ QInt QInt::operator *(QInt num) {
 	bool bitNho = 0;
 	QInt A;
 	QInt temp = *this;
+	if (num.GetBit(0) == 1 && temp.GetBit(0) == 1) {
+		temp = Convert::ToBu2(temp);
+		num = Convert::ToBu2(num);
+	}
 	int k = 127; //So bit cua num
 	while (k >= 0) {
 		bool endBitQ = num.GetBit(k);
@@ -256,7 +246,7 @@ QInt QInt::operator *(QInt num) {
 			A = A + temp;
 		}
 		//Shift left để mỗi lần nhân theo cột thì lần nhân tiếp theo dồn qua trái ( thuật toán nhân tiểu học )
-		//temp = temp << 1;
+		temp = temp << 1;
 		k = k - 1; //Nhan 1 so trong num roi thi chuyen sang so tiep theo
 	}
 
@@ -291,7 +281,6 @@ QInt QInt::operator-(QInt num)
 
 		// Reset sum
 		sum = 0;
-		cout << this->GetBit(i);
 	}
 
 	return QInt(*this);
@@ -321,7 +310,6 @@ void QInt::SetBit(int vt, bool  bit) {
 	}
 }
 
-<<<<<<< HEAD
 QInt QInt::operator<<(unsigned int num)
 {
 	// Convert *this -> string Bin
@@ -346,12 +334,8 @@ QInt QInt::operator<<(unsigned int num)
 	return QInt(*this);
 }
 
-QInt QInt::operator>>(unsigned int num) {
-=======
 QInt QInt::operator >>(unsigned int offset) {
->>>>>>> 566098a38d5df51f3df1a74dc33946d9c829ff34
 
-	//CAI NAY SAI ME R
 	QInt res = *this;
 	//Don bit sang phai , thuc hien phep don bit voi so lan offset
 	for (int i = 0; i < offset; i++) {
