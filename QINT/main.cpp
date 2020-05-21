@@ -21,6 +21,13 @@ void testBit(QInt x) {
 int main() {
 	/*double c = pow(2,127);
 
+<<<<<<< HEAD
 	string k = to_string(c);
 	cout << k;*/
+=======
+	QInt a;
+	cin >> a;
+	a = a >> 2;
+	cout << a;
+>>>>>>> 566098a38d5df51f3df1a74dc33946d9c829ff34
 }

@@ -163,7 +163,7 @@ QInt& QInt::operator =(unsigned int x) {
 	return *this;
 }
 
-QInt QInt::operator~() {
+QInt QInt::operator ~() {
 
 	QInt res;
 	res = 0;
@@ -174,7 +174,7 @@ QInt QInt::operator~() {
 	return res;
 }
 
-QInt QInt::operator^(QInt num) {
+QInt QInt::operator ^(QInt num) {
 	QInt result;
 	for (int i = 0; i < LENGTH; i++) {
 		//xor từng cặp byte -> tự so bit
@@ -188,7 +188,7 @@ QInt QInt::operator^(QInt num) {
  * Sử dụng: QInt res = (QInt)a & (QInt)b
  * Note: Trả về QInt mới, không thay đổi *this
 */
-QInt QInt::operator&(QInt const& num)
+QInt QInt::operator &(QInt const& num)
 {
 	QInt result;
 
@@ -205,7 +205,7 @@ QInt QInt::operator&(QInt const& num)
  * Sử dụng: QInt res = (QInt)a | (QInt)b
  * Note: Trả về QInt mới, không thay đổi *this
 */
-QInt QInt::operator|(QInt const& num)
+QInt QInt::operator |(QInt const& num)
 {
 	QInt result;
 
@@ -217,7 +217,7 @@ QInt QInt::operator|(QInt const& num)
 	return QInt(result);
 }
 
-QInt QInt::operator+(QInt num) {
+QInt QInt::operator +(QInt num) {
 	QInt result;
 	result = 0;
 	int bitNho = 0; //Phep cong 2 bit thi bitNho toi da la 1
@@ -244,7 +244,7 @@ QInt QInt::operator+(QInt num) {
 	return result;
 }
 
-QInt QInt::operator*(QInt num) {
+QInt QInt::operator *(QInt num) {
 	//Ap dung thuat toan nhan voi so khong dau(chuyen so co dau thanh khong dau)
 	bool bitNho = 0;
 	QInt A;
@@ -264,7 +264,7 @@ QInt QInt::operator*(QInt num) {
 	
 }
 
-QInt QInt::operator=(const QInt& QInt) {
+QInt QInt::operator =(const QInt& QInt) {
 	for (int i = 0; i < LENGTH; i++) {
 		this->data[i] = QInt.data[i];
 	}
@@ -321,6 +321,7 @@ void QInt::SetBit(int vt, bool  bit) {
 	}
 }
 
+<<<<<<< HEAD
 QInt QInt::operator<<(unsigned int num)
 {
 	// Convert *this -> string Bin
@@ -346,13 +347,22 @@ QInt QInt::operator<<(unsigned int num)
 }
 
 QInt QInt::operator>>(unsigned int num) {
+=======
+QInt QInt::operator >>(unsigned int offset) {
+>>>>>>> 566098a38d5df51f3df1a74dc33946d9c829ff34
 
 	//CAI NAY SAI ME R
-	QInt res;
-	res = 0;
-	for (int i = 0; i < LENGTH; i++) {
-		res.data[i] = this->data[i] >> num;
+	QInt res = *this;
+	//Don bit sang phai , thuc hien phep don bit voi so lan offset
+	for (int i = 0; i < offset; i++) {
+		for (int j = SIZE - 1; j >= 1; j--) {
+			res.SetBit(j, res.GetBit(j - 1));
+		}
+		if (res.GetBit(0) == 1) {
+			res.SetBit(0, 1);
+		}
 	}
+	
 	return res;
 }
 
