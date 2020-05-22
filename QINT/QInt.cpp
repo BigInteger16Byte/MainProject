@@ -109,11 +109,6 @@ QInt::QInt(string src, int flag)
 				}
 			}
 
-			/*cout << "Sau bu 2" << endl;
-			for (int i = 0; i < 128; i++) {
-				cout << this->GetBit(i);
-			}
-			cout << endl;*/
 
 			break;
 		}
