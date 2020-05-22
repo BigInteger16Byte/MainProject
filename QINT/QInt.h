@@ -44,6 +44,7 @@ public:
 
 	/* Rotate */
 	QInt rotateRight();	// Mỗi lần chỉ cần xoay 1 bit (Đề yêu cầu)
+	QInt rotateLeft(); 
 
 	/* Bitwise */
 	QInt operator~();  // đảo bit nhưng không làm thay đổi data(Trả về 1 giá trị mới)

@@ -249,7 +249,6 @@ QInt QInt::operator *(QInt num) {
 		temp = temp << 1;
 		k = k - 1; //Nhan 1 so trong num roi thi chuyen sang so tiep theo
 	}
-
 	return A;
 	
 }
@@ -286,10 +285,10 @@ QInt QInt::operator-(QInt num)
 	return QInt(*this);
 }
 
-QInt QInt::operator/(QInt num)
+QInt QInt::operator /(QInt num)
 {
 	string A(128, '0'); // Contain surplus (số dư)
-
+	
 	if (this->GetBit(0)) {
 		string A(128, '1'); // Contain surplus (số dư)
 	}
@@ -424,6 +423,15 @@ QInt QInt::rotateRight()
 	return QInt(*this);
 }
 
+QInt QInt::rotateLeft() {
+	QInt res = *this;
+	bool mostLeft = res.GetBit(0);
+	res = res << 1;
+	res.SetBit(SIZE - 1, mostLeft);
+
+	return res;
+}
+
 ostream& operator<<(ostream& out,  QInt num){
 	// TODO: insert return statement here
 	out << Convert::QIntToStringNumber(num);
@@ -436,6 +444,7 @@ istream& operator>>(istream& is, QInt& num) {
 	num = Convert::StringNumberToQInt(temp);
 	return is;
 }
+
 
 
 
