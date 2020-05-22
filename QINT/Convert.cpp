@@ -187,10 +187,10 @@ string Convert::QIntToStringNumber(QInt x) {
 		x = Convert::ToBu2(x);  //Đảo từ âm lại thành số dương nhưng thêm dấu trừ
 		result = "-";
 	}
-	for (int i = 0; i <128; i++) {
-		cout << x.GetBit(i);
-	}	
-	cout << endl;
+	//for (int i = 0; i <128; i++) {
+	//	cout << x.GetBit(i);
+	//}	
+	//cout << endl;
 	string valueNotSign = "";
 	for (int i = 127; i >= 0; i--) {
 		if (x.GetBit(i) == 1) {//nếu là 1 thì mới cộng thêm

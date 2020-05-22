@@ -8,14 +8,6 @@
 
 using namespace std;
 
-//hàm này để in ra dãy 128 bit để test
-void testBit(QInt x) {
-    for (int i = 0; i < 128; i++) {
-        cout << x.GetBit(i);
-        if ((i + 1) % 32 == 0)  cout << endl;
-    }
-    cout << endl;
-}
 
 // Ta quy uoc: 0 (he 10), 1(he 2), 2(he 16)
 int getFormat(string val) {
@@ -58,7 +50,7 @@ void writeToFile(ofstream& out, int formatDes, QInt num) {
 			res = Convert::DecToBin(num);
 
 			// Trim 0 header
-			res = trimZeroHeader(res);
+			res = delete0(res);
 			out << res << endl;
 		}
 		if (formatDes == 2) { // Chuyen thanh he 16
@@ -68,11 +60,29 @@ void writeToFile(ofstream& out, int formatDes, QInt num) {
 	}
 }
 
+
+void testBit(QInt x) {
+	for (int i = 0; i < 128; i++) {
+		cout << x.GetBit(i);
+		if ((i + 1) % 32 == 0)  cout << endl;
+	}
+	cout << endl;
+}
+
+
 // Kiểm tra tràn số đầu vào
 // Chuổi Bin dài hơn 128 kí tự
 // Chuổi Dec dài hơn 39 kí tự or bằng 38 và lớn hơn chuổi "170141183460469231731687303715884105727" (so sánh chuổi 2^127 - 1)
 // Chuổi Hex dài hơn 32 kí tự or bằng 32 và lớn hơn chuổi "7FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF"
-
+//int main() {
+//	string bin = "010010001101100111101111110001001011010010000101110001001011110010000101111101000111000100101111110001011110101111011111000100";
+//	cout << bin.length() << endl;
+//	QInt test(bin, 1);
+//	testBit(test);
+//
+//	test = test << 9;
+//	testBit(test);
+//}
 
 int main() {
 
@@ -80,7 +90,7 @@ int main() {
     ofstream outFile;
 
     inFile.open("input.txt");
-    outFile.open("output.txt");
+    outFile.open("my_output.txt");
 
     string line = ""; // Moi lan doc 1 dong cua file
     int lenLine = 0; // length of line
@@ -161,7 +171,7 @@ int main() {
                     {
                         writeToFile(outFile, formatDes, dummy);
                     }
-
+                    
                     break;
                 }
                 // Mac dinh la chuyen co so:
@@ -177,7 +187,6 @@ int main() {
                 }
 
                 QInt dummy(items.at(2), formatSrc); // khoi tao QInt tu string he 10
-
                 {
                     writeToFile(outFile, formatDes, dummy);
                 }
@@ -229,7 +238,6 @@ int main() {
                 else {
                     QInt operand(items.at(1), formatSrc); // khoi tao QInt tu string he formatSrc
                     int step = atoi(items.at(3).c_str());
-
                     if (items.at(2) == "<<") {
                         operand = operand << step;
                     }
@@ -257,4 +265,26 @@ int main() {
 
     inFile.close();
     outFile.close();
+
+
+
+    //CHECK SCORE
+    ifstream myResult;
+    ifstream compare;
+    compare.open("output.txt");
+    myResult.open("my_output.txt");
+    string line1, line2;
+    int score = 0;
+    while (getline(myResult, line1))
+    {
+        getline(compare, line2);
+        if (line1 == line2) {
+            score++;
+        }
+    }
+    cout << "YOUR SCORE : " << score << endl;
+    myResult.close();
+    compare.close();
+
+
 }
