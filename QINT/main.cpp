@@ -19,26 +19,6 @@ void testBit(QInt x) {
 
 
 int main() {
-<<<<<<< HEAD
-	/*double c = pow(2,127);
-
-	string k = to_string(c);
-	cout << k;*/
-	/*
-	QInt a;
-	cin >> a;
-	a = a >> 2;
-	cout << a;*/
 	
-	QInt a("788323282258381939236275890776");
-	QInt b("-27388934683056007097503944712");
-
-	cout << a / b;
-=======
 	
-	QInt a, b;
-	cin >> a;
-	cin >> b;
-	cout << a * b << endl;
->>>>>>> 008b9492db9d0b382de7af01a69884517a755388
 }
