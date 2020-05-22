@@ -1,6 +1,7 @@
 ﻿#include"QInt.h"
 #include"Convert.h"
 
+#include<iostream>
 #include<fstream>
 #include<string>
 #include<vector>
@@ -29,41 +30,42 @@ int getFormat(string val) {
     }
 }
 
-string trimZeroHeader(string bin) {
-    string res = bin;
-    int i;
-    for (i = 0; i < 128; i++) {
-        if (res[i] == '1') {
-            res = res.substr(i);
-            break;
-        }
-    }
-    if (i == 128) {
-        res = "0";
-    }
 
-    return res;
+string trimZeroHeader(string bin) {
+	string res = bin;
+	int i;
+	for (i = 0; i < 128; i++) {
+		if (res[i] == '1') {
+			res = res.substr(i);
+			break;
+		}
+	}
+	if (i == 128) {
+		res = "0";
+	}
+
+	return res;
 }
 
 void writeToFile(ofstream& out, int formatDes, QInt num) {
-    string res = "";
-    {
-        if (formatDes == 0) { // Chuyen thanh he 10
-            res = Convert::QIntToStringNumber(num);
-            out << res << endl;
-        }
-        if (formatDes == 1) { // Chuyen thanh he 2
-            res = Convert::DecToBin(num);
+	string res = "";
+	{
+		if (formatDes == 0) { // Chuyen thanh he 10
+			res = Convert::QIntToStringNumber(num);
+			out << res << endl;
+		}
+		if (formatDes == 1) { // Chuyen thanh he 2
+			res = Convert::DecToBin(num);
 
-            // Trim 0 header
-            res = trimZeroHeader(res);
-            out << res << endl;
-        }
-        if (formatDes == 2) { // Chuyen thanh he 16
-            res = Convert::DecToHex(num);
-            out << res << endl;
-        }
-    }
+			// Trim 0 header
+			res = trimZeroHeader(res);
+			out << res << endl;
+		}
+		if (formatDes == 2) { // Chuyen thanh he 16
+			res = Convert::DecToHex(num);
+			out << res << endl;
+		}
+	}
 }
 
 // Kiểm tra tràn số đầu vào
