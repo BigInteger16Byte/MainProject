@@ -23,39 +23,22 @@ int getFormat(string val) {
 }
 
 
-string trimZeroHeader(string bin) {
-	string res = bin;
-	int i;
-	for (i = 0; i < 128; i++) {
-		if (res[i] == '1') {
-			res = res.substr(i);
-			break;
-		}
-	}
-	if (i == 128) {
-		res = "0";
-	}
-
-	return res;
-}
-
 void writeToFile(ofstream& out, int formatDes, QInt num) {
 	string res = "";
 	{
 		if (formatDes == 0) { // Chuyen thanh he 10
 			res = Convert::QIntToStringNumber(num);
-			out << res << endl;
+			out << delete0(res) << endl;
 		}
 		if (formatDes == 1) { // Chuyen thanh he 2
 			res = Convert::DecToBin(num);
 
 			// Trim 0 header
-			res = delete0(res);
-			out << res << endl;
+			out << delete0(res) << endl;
 		}
 		if (formatDes == 2) { // Chuyen thanh he 16
 			res = Convert::DecToHex(num);
-			out << res << endl;
+			out << delete0(res) << endl;
 		}
 	}
 }
@@ -74,23 +57,23 @@ void testBit(QInt x) {
 // Chuổi Bin dài hơn 128 kí tự
 // Chuổi Dec dài hơn 39 kí tự or bằng 38 và lớn hơn chuổi "170141183460469231731687303715884105727" (so sánh chuổi 2^127 - 1)
 // Chuổi Hex dài hơn 32 kí tự or bằng 32 và lớn hơn chuổi "7FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF"
-//int main() {
-//	string bin = "010010001101100111101111110001001011010010000101110001001011110010000101111101000111000100101111110001011110101111011111000100";
-//	cout << bin.length() << endl;
-//	QInt test(bin, 1);
-//	testBit(test);
-//
-//	test = test << 9;
-//	testBit(test);
-//}
 
-int main() {
+
+
+int main(int argc, char* argv[]) {
 
     ifstream inFile;
     ofstream outFile;
 
-    inFile.open("input.txt");
-    outFile.open("my_output.txt");
+    if (argc < 3) {
+        cout << "The format must be correct" << endl;
+        cout << "Format : <name>.exe <input>.txt <output>.txt" << endl;
+        return 0;
+    }
+    else {
+        inFile.open(argv[1]);
+        outFile.open(argv[2]);
+    }
 
     string line = ""; // Moi lan doc 1 dong cua file
     int lenLine = 0; // length of line
@@ -266,25 +249,6 @@ int main() {
     inFile.close();
     outFile.close();
 
-
-
-    //CHECK SCORE
-    ifstream myResult;
-    ifstream compare;
-    compare.open("output.txt");
-    myResult.open("my_output.txt");
-    string line1, line2;
-    int score = 0;
-    while (getline(myResult, line1))
-    {
-        getline(compare, line2);
-        if (line1 == line2) {
-            score++;
-        }
-    }
-    cout << "YOUR SCORE : " << score << endl;
-    myResult.close();
-    compare.close();
 
 
 }
