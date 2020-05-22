@@ -421,7 +421,7 @@ QInt QInt::rotateRight()
 		this->SetBit(i, bin[i] == '0' ? 0 : 1);
 	}
 
-	return QInt();
+	return QInt(*this);
 }
 
 ostream& operator<<(ostream& out,  QInt num){
