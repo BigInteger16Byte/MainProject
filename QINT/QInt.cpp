@@ -1,28 +1,6 @@
 ﻿#include"QInt.h"
 #include"Convert.h"
-
-string div2String(string num, bool& bit) {  //Bit du sau khi chia 2
-	if ((int)(num[num.length() - 1] - '0') % 2 == 0)
-		bit = 0;
-	else
-		bit = 1;
-
-	//chia cho 2 , cung la 1 thuat toan co ban tieu hoc
-	int length = num.length();
-	int resCol = 0;
-	int mod = 0;
-	string result = "";
-	for (int i = 0; i < length; i++) {
-		resCol = (int)(num[i] - '0') + mod * 10;
-		mod = resCol % 2;
-		resCol /= 2;
-		if (resCol == 0 && i == 0) {   //Khi gia tri tai i = 0 < 2 thi khong them 0 vao
-			continue;
-		}
-		result += to_string(resCol);
-	}
-	return result;
-}
+#include"SupportFunction.h"
 
 QInt::QInt(){
 	for (int i = 0; i < LENGTH; i++) {
@@ -56,7 +34,7 @@ QInt::QInt(string src, int flag)
 
 			// Chia 2 liên tục và lưu số dư vào vị trí tương ứng arr dummy
 			while (clone.length() != 0) {
-				clone = div2String(clone, surPlus);
+				clone = Div2String(clone, surPlus);
 				bin[127 - count] = surPlus;
 				count++;
 			}
@@ -446,40 +424,3 @@ istream& operator>>(istream& is, QInt& num) {
 
 // Tui vua update constructor co the tao QInt tu String Dec (-, +), string Bin, string Hex	:==D
 
-
-//Tam thoi chua dung den
-bool* stringToBin(string str) { // Input là 1 chuỗi , chuyển nó thành bin và thêm 0 vào cho đủ 128
-
-	bool* bin = new bool[128];
-	if (str.length() > 128) {
-		cout << "tran so me roi kia" << endl;
-	}
-	int countBit = 127;
-	for (int i = str.length() - 1; i >= 0; i--) {
-		if (str[i] == '1')
-			bin[countBit] = 1;
-		else if (str[i] == '0')
-			bin[countBit] = 0;
-
-		countBit--;
-	}
-
-	while (countBit >= 0)
-	{
-		bin[countBit] = 0;
-		countBit--;
-	}
-
-	return bin;
-
-}
-
-string delete0(string str) {
-	int vt = 0;
-	for (vt = 0; vt < str.length(); vt++)
-	{
-		if (str[vt] != '0')
-			break;
-	}
-	return str.substr(vt);
-}

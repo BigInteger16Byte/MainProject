@@ -55,9 +55,8 @@ void testBit(QInt x) {
 
 // Kiểm tra tràn số đầu vào
 // Chuổi Bin dài hơn 128 kí tự
-// Chuổi Dec dài hơn 39 kí tự or bằng 38 và lớn hơn chuổi "170141183460469231731687303715884105727" (so sánh chuổi 2^127 - 1)
+// Chuổi Dec dài hơn 39 kí tự or bằng 38 và lớn hơn chuổi "170141183460469231731687303715884105727" (so sánh chuổi 2^127 - 1) , Miền giá trị [ -2^127-1 , 2^127-1 ] 
 // Chuổi Hex dài hơn 32 kí tự or bằng 32 và lớn hơn chuổi "7FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF"
-
 
 
 int main(int argc, char* argv[]) {
