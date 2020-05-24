@@ -282,6 +282,14 @@ QInt QInt::operator-(QInt num)
 
 QInt QInt::operator /(QInt num)
 {
+
+	// TH cơ sở:
+
+	/* Nếu a == 0 => kq = 0, if b ==0 => kq = 0 (biểu thị phép tính không thực hiện được) */
+	if (Convert::QIntToStringNumber(*this) == "0" || Convert::QIntToStringNumber(num) == "0") { // == "" là do method convert cua ong tra ve "" khi QInt = 0
+		return QInt("0");
+	}
+
 	string A(128, '0'); // Contain surplus (số dư)
 	
 	if (this->GetBit(0)) {
