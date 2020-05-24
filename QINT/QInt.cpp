@@ -239,6 +239,8 @@ QInt QInt::operator =(const QInt& QInt) {
  */
 QInt QInt::operator-(QInt num)
 {
+	QInt res;
+
 	// Chuyen so b sang bu 2 de the hien so am va tien hanh cong voi a
 	QInt numBu2 = Convert::ToBu2(num);
 
@@ -248,14 +250,14 @@ QInt QInt::operator-(QInt num)
 	for (int i = 127; i >= 0; i--) {
 		sum = this->GetBit(i) + numBu2.GetBit(i) + remain;
 
-		this->SetBit(i, sum % 2);	// Set bit tai vi tri i la so du cua sum voi 2
+		res.SetBit(i, sum % 2);	// Set bit tai vi tri i la so du cua sum voi 2
 		remain = sum / 2;			// Bien nho la so nguyen cua sum voi 2
 
 		// Reset sum
 		sum = 0;
 	}
 
-	return QInt(*this);
+	return QInt(res);
 }
 
 QInt QInt::operator /(QInt num)
