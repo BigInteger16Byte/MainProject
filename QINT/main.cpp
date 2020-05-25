@@ -178,59 +178,64 @@ int compareTwoQInt(QInt a, QInt b) {
 
 bool isDeadthZone(QInt a, QInt b, QInt res, char opera) {
     switch (opera) {
-    case '+': { // Add
-        if (a.GetBit(0) == 0 && b.GetBit(0) == 0 && res.GetBit(0) == 1) {
-            return true;
-        }
-        if (a.GetBit(0) == 1 && b.GetBit(0) == 1 && res.GetBit(0) == 0) {
-            return true;
-        }
-        return false;
-
-        break;
-    }
-    case '-': { // Sub
-        if ((compareTwoQInt(res, a) == -1 ? 1 : 0) != compareTwoQInt(b, QInt("0")) == 1 ? 1 : 0) {
-            return true;
-        }
-
-        return false;
-
-        break;
-    }
-    case '*': { // Multi
-        if (compareTwoQInt(a, QInt("0")) == 0 || compareTwoQInt(b, QInt("0")) == 0) {
-            return false; // Neu a=0 or b=0 thi se ko tran
-        }
-        if (Convert::QIntToStringNumber(a) == Convert::QIntToStringNumber(res / b)) {
+        case '+': { // Add
+            if (a.GetBit(0) == 0 && b.GetBit(0) == 0 && res.GetBit(0) == 1) {
+                return true;
+            }
+            if (a.GetBit(0) == 1 && b.GetBit(0) == 1 && res.GetBit(0) == 0) {
+                return true;
+            }
             return false;
+
+            break;
         }
+        case '-': { // Sub
+            if ((compareTwoQInt(res, a) == -1 ? 1 : 0) != compareTwoQInt(b, QInt("0")) == 1 ? 1 : 0) {
+                return true;
+            }
 
-        return true;
+            return false;
 
-        break;
-    }
-    case '/': { // Div
-        if (Convert::QIntToStringNumber(a) == "-170141183460469231731687303715884105728" && compareTwoQInt(b, QInt("-1")) == 0) {
+            break;
+        }
+        case '*': { // Multi
+            if (compareTwoQInt(a, QInt("0")) == 0 || compareTwoQInt(b, QInt("0")) == 0) {
+                return false; // Neu a=0 or b=0 thi se ko tran
+            }
+            if (Convert::QIntToStringNumber(a) == "-170141183460469231731687303715884105728" && Convert::QIntToStringNumber(b) == "-1") {
+                return true;
+            }
+            if (Convert::QIntToStringNumber(a) == "-1" && Convert::QIntToStringNumber(b) == "-170141183460469231731687303715884105728") {
+                return true;
+            }
+            if (Convert::QIntToStringNumber(a) == Convert::QIntToStringNumber(res / b)) {
+                return false;
+            }
+
             return true;
+
+            break;
         }
+        case '/': { // Div
+            if (Convert::QIntToStringNumber(a) == "-170141183460469231731687303715884105728" && Convert::QIntToStringNumber(b) == "-1") {
+                return true;
+            }
 
-        return false;
+            return false;
 
-        break;
-    }
+            break;
+        }
     }
 }
-
 
 int main(int argc, char* argv[]) {
 
     QInt a("-170141183460469231731687303715884105728");
     QInt b("-1");
 
-    QInt res = a * b;
+    QInt res = a / b;
 
-    cout << isDeadthZone(a, b, res, '*') << endl;
+    cout << isDeadthZone(a, b, res, '/') << endl;
 
 
     //ifstream inFile;
