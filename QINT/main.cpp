@@ -241,6 +241,7 @@ bool isDeadthZone(QInt a, QInt b, QInt res, char opera) {
 
 int main(int argc, char* argv[]) {
 
+ 
 
     ifstream inFile;
     ofstream outFile;
@@ -398,7 +399,7 @@ int main(int argc, char* argv[]) {
                     {
                         if(currentOperator=='+' || currentOperator == '-' || currentOperator == '*' || currentOperator == '/'){
                             if (isDeadthZone(operand1, operand2, res, currentOperator)) {
-                                outFile << "0" << endl;
+                                outFile << "" << endl;
                                 break;
                             }
                         }

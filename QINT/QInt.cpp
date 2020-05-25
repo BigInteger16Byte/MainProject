@@ -100,12 +100,12 @@ QInt::QInt(string src, int flag)
 		break;
 	}
 	case 2: { // Truong hop src vao la string Hex
-
+		if (src.length() > 32)
+			isOverFlow = true;
 		// Vi khong co dinh nghi so Hex am duong nen ta chuyn Hec thanh Bin va khong quan tam dau
 		string binary = Convert::HexToBin(src);
 
 		int len = binary.length();
-
 		// Neu string chua du 128 bit length thi them so 0 or 1 vao dau
 		for (int i = 0; i < 128 - len; i++) {
 			bin[i] = 0;
@@ -137,7 +137,7 @@ QInt::QInt(string src, int flag)
 	}
 
 	if (isOverFlow == true)
-		*this = QInt("0");
+		*this = QInt("");
 }
 
 QInt& QInt::operator =(unsigned int x) {
