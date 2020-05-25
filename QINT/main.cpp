@@ -177,6 +177,9 @@ int compareTwoQInt(QInt a, QInt b) {
 }
 
 bool isDeadthZone(QInt a, QInt b, QInt res, char opera) {
+
+    //overflow on number
+    
     switch (opera) {
     case '+': { // Add
         if (a.GetBit(0) == 0 && b.GetBit(0) == 0 && res.GetBit(0) == 1) {
@@ -225,14 +228,15 @@ bool isDeadthZone(QInt a, QInt b, QInt res, char opera) {
 
 int main(int argc, char* argv[]) {
 
-    QInt a("-170141183460469231731687303715884105728");
-    QInt b("-1");
-
-    QInt res = a * b;
-
-    cout << isDeadthZone(a, b, res, '*') << endl;
-
-
+    QInt a("170141183460469231731687303715884105728");
+    QInt b("170141183460469231731687303715884105728");
+    cout << a << endl;
+    cout << b << endl;
+    QInt res = a / b;
+    testBit(res);
+    cout << isDeadthZone(a,b,res,'/') << endl;
+ 
+        
     //ifstream inFile;
     //ofstream outFile;
 

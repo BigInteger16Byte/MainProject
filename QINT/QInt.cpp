@@ -91,7 +91,6 @@ QInt::QInt(string src, int flag)
 			break;
 		}
 		case 2: { // Truong hop src vao la string Hex
-
 			// Vi khong co dinh nghi so Hex am duong nen ta chuyn Hec thanh Bin va khong quan tam dau
 			string binary = Convert::HexToBin(src);
 
@@ -125,6 +124,7 @@ QInt::QInt(string src, int flag)
 
 		default:
 			*this = QInt("");
+
 	}
 }
 
@@ -199,6 +199,9 @@ QInt QInt::operator +(QInt num) {
 		result.SetBit(i, sum % 2);	// Set bit tai vi tri i la so du cua sum voi 2
 		bitNho = sum / 2;
 	}
+	if (bitNho != 0) {
+		return QInt("0");
+	}
 
 	return result;
 }
@@ -256,6 +259,9 @@ QInt QInt::operator-(QInt num)
 		// Reset sum
 		sum = 0;
 	}
+
+	if (remain != 0)
+		return QInt("0");
 
 	return QInt(res);
 }
