@@ -119,3 +119,29 @@ string delete0(string str) {
 	}
 	return str.substr(vt);
 }
+
+//support to compare 2 string like number
+int lengthCompareString(string a, string b) {
+	//Length compare
+	if (a.length() > b.length())
+		return 1;
+	else if (a.length() < b.length())
+		return -1;
+	else {   //Khi do dai bang nhau thi so sanh tung ki tu
+		return a.compare(b);
+	}
+}
+
+int compareTwoStringLikeNumber(string a, string b) {
+
+	if (a[0] == '-' && b[0] != '-') return -1;
+	else if (a[0] != '-' && b[0] == '-') return 1;
+	else if (a[0] == '-' && b[0] == '-') { //Neu ca 2 cung am
+		a = a.substr(1);
+		b = b.substr(1);
+		return -1 * lengthCompareString(a, b);
+	}
+
+	return lengthCompareString(a, b);
+
+}

@@ -6,6 +6,11 @@
 #include <iostream>
 using namespace std;
 
+
+#define UPPER_LIMIT "170141183460469231731687303715884105727"
+#define LOWER_LIMIT "-170141183460469231731687303715884105728"
+
+
 #define BIT32 32   //4 byte
 #define LENGTH 4 // length of data
 #define SIZE 128
