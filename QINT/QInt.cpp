@@ -137,7 +137,7 @@ QInt::QInt(string src, int flag)
 	}
 
 	if (isOverFlow == true)
-		*this = QInt("");
+		*this = QInt("0");
 }
 
 QInt& QInt::operator =(unsigned int x) {
