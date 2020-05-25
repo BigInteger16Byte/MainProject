@@ -8,6 +8,9 @@
 
 using namespace std;
 
+#define UPPER_LIMIT "170141183460469231731687303715884105727"
+#define LOWER_LIMIT "-170141183460469231731687303715884105728"
+
 
 // Ta quy uoc: 0 (he 10), 1(he 2), 2(he 16)
 int getFormat(string val) {
@@ -128,13 +131,16 @@ int compareTwoQInt(QInt a, QInt b) {
     bool signA = a.GetBit(0);
     bool signB = b.GetBit(0);
 
+    // Kiểm tra trường hợp cơ sở: số âm luôn nhỏ hơn số dương và ngược lại 
     if (signA == 0 && signB == 1) {
         return 1; // a > b
     }
     if (signA == 1 && signB == 0) {
         return -1; // a < b
     }
-    if (signA == 0) { // So dương
+
+    // Nếu 2 số cùng là số dương thì ta só sánh đô dài và so sánh chuổi
+    if (signA == 0) {
         string decA = Convert::QIntToStringNumber(a);
         string decB = Convert::QIntToStringNumber(b);
 
@@ -154,6 +160,8 @@ int compareTwoQInt(QInt a, QInt b) {
             return -1;
         }
     }
+
+    // Tương tự th 2 số cùng dương, ở đây ta tách dấu trừ đi và kiểm tra
     if (signA == 1) { // Số âm
         string decA = Convert::QIntToStringNumber(a).substr(1); // bo dau -
         string decB = Convert::QIntToStringNumber(b).substr(1); // bo dau -
@@ -176,6 +184,9 @@ int compareTwoQInt(QInt a, QInt b) {
     }
 }
 
+// Kiểm tra quá trình tính toán có xãy ra overflow hay không
+// Tham số đầu vào: số a, số b, kết quả của phép tính, toán tử
+// Đầu ra: nếu phat hiện tràn trả về 1, không tràn trả về 0
 bool isDeadthZone(QInt a, QInt b, QInt res, char opera) {
     switch (opera) {
         case '+': { // Add
@@ -202,10 +213,10 @@ bool isDeadthZone(QInt a, QInt b, QInt res, char opera) {
             if (compareTwoQInt(a, QInt("0")) == 0 || compareTwoQInt(b, QInt("0")) == 0) {
                 return false; // Neu a=0 or b=0 thi se ko tran
             }
-            if (Convert::QIntToStringNumber(a) == "-170141183460469231731687303715884105728" && Convert::QIntToStringNumber(b) == "-1") {
+            if (Convert::QIntToStringNumber(a) == LOWER_LIMIT && Convert::QIntToStringNumber(b) == "-1") {
                 return true;
             }
-            if (Convert::QIntToStringNumber(a) == "-1" && Convert::QIntToStringNumber(b) == "-170141183460469231731687303715884105728") {
+            if (Convert::QIntToStringNumber(a) == "-1" && Convert::QIntToStringNumber(b) == LOWER_LIMIT) {
                 return true;
             }
             if (Convert::QIntToStringNumber(a) == Convert::QIntToStringNumber(res / b)) {
@@ -217,7 +228,7 @@ bool isDeadthZone(QInt a, QInt b, QInt res, char opera) {
             break;
         }
         case '/': { // Div
-            if (Convert::QIntToStringNumber(a) == "-170141183460469231731687303715884105728" && Convert::QIntToStringNumber(b) == "-1") {
+            if (Convert::QIntToStringNumber(a) == LOWER_LIMIT && Convert::QIntToStringNumber(b) == "-1") {
                 return true;
             }
 
@@ -230,199 +241,208 @@ bool isDeadthZone(QInt a, QInt b, QInt res, char opera) {
 
 int main(int argc, char* argv[]) {
 
-    QInt a("-170141183460469231731687303715884105728");
+   /* QInt a("-170141183460469231731687303715884105728");
     QInt b("-1");
 
     QInt res = a / b;
 
     cout << isDeadthZone(a, b, res, '/') << endl;
+*/
 
+    ifstream inFile;
+    ofstream outFile;
 
-    //ifstream inFile;
-    //ofstream outFile;
+    if (argc < 3) {
+        cout << "The format must be correct" << endl;
+        cout << "Format : <name>.exe <input>.txt <output>.txt" << endl;
+        return 0;
+    }
+    else {
+        inFile.open(argv[1]);
+        outFile.open(argv[2]);
+    }
 
-    //if (argc < 3) {
-    //    cout << "The format must be correct" << endl;
-    //    cout << "Format : <name>.exe <input>.txt <output>.txt" << endl;
-    //    return 0;
-    //}
-    //else {
-    //    inFile.open(argv[1]);
-    //    outFile.open(argv[2]);
-    //}
+    string line = ""; // Moi lan doc 1 dong cua file
+    int lenLine = 0; // length of line
+    vector<string> items; // Luu cac substr khi cat line voi delim " "
 
-    //string line = ""; // Moi lan doc 1 dong cua file
-    //int lenLine = 0; // length of line
-    //vector<string> items; // Luu cac substr khi cat line voi delim " "
+    // Luu yeu tinh toan tren he co so may va tra ve he co so may
+    int formatSrc;
+    int formatDes;
+    string res = ""; // De luu ket qua cuoi cung khi thuc hien cac phep tinh va ghi xuong file
 
-    //// Luu yeu tinh toan tren he co so may va tra ve he co so may
-    //int formatSrc;
-    //int formatDes;
-    //string res = ""; // De luu ket qua cuoi cung khi thuc hien cac phep tinh va ghi xuong file
+    while (getline(inFile, line)) {
 
-    //while (getline(inFile, line)) {
+        if (line.length() > 0) {
 
-    //    if (line.length() > 0) {
+            lenLine = line.length(); // get length
 
-    //        lenLine = line.length(); // get length
+            // Cat chuoi thanh 1 array cac string voi delim = " "
+            int pos = 0; // Luu vi tri phat hien  " "
+            for (int i = 0; i < lenLine; i++) {
+                if (line[i] == ' ') {
+                    items.push_back(line.substr(pos, i - pos));
+                    pos = i + 1;
+                }
+            }
+            items.push_back(line.substr(pos));
 
-    //        // Cat chuoi thanh 1 array cac string voi delim = " "
-    //        int pos = 0; // Luu vi tri phat hien  " "
-    //        for (int i = 0; i < lenLine; i++) {
-    //            if (line[i] == ' ') {
-    //                items.push_back(line.substr(pos, i - pos));
-    //                pos = i + 1;
-    //            }
-    //        }
-    //        items.push_back(line.substr(pos));
+            // Xet cac truong hop:
+            switch (items.size()) {
+            case 3: { // Neu arr co 3 phan tu thi string line co 2 space.
 
-    //        // Xet cac truong hop:
-    //        switch (items.size()) {
-    //        case 3: { // Neu arr co 3 phan tu thi string line co 2 space.
+                // Voi 2 space ta co cac phep toan: chuyen co so, rol, ror, ~ bit
+                if (items.at(1) == "rol") {
+                    // Luu yeu cau dau vao dau ra.
 
-    //            // Voi 2 space ta co cac phep toan: chuyen co so, rol, ror, ~ bit
-    //            if (items.at(1) == "rol") {
-    //                // Luu yeu cau dau vao dau ra.
+                    formatSrc = getFormat(items.at(0));
+                    formatDes = getFormat(items.at(0));
 
-    //                formatSrc = getFormat(items.at(0));
-    //                formatDes = getFormat(items.at(0));
+                    QInt dummy(items.at(2), formatSrc); // khoi tao QInt tu string he 10
+                    dummy = dummy.rotateLeft();
 
-    //                QInt dummy(items.at(2), formatSrc); // khoi tao QInt tu string he 10
-    //                dummy = dummy.rotateLeft();
+                    {
+                        writeToFile(outFile, formatDes, dummy);
+                    }
 
-    //                {
-    //                    writeToFile(outFile, formatDes, dummy);
-    //                }
+                    break;
+                }
 
-    //                break;
-    //            }
+                if (items.at(1) == "ror") {
+                    // Luu yeu cau dau vao dau ra.
 
-    //            if (items.at(1) == "ror") {
-    //                // Luu yeu cau dau vao dau ra.
+                    formatSrc = getFormat(items.at(0));
+                    formatDes = getFormat(items.at(0));
 
-    //                formatSrc = getFormat(items.at(0));
-    //                formatDes = getFormat(items.at(0));
+                    QInt dummy(items.at(2), formatSrc); // khoi tao QInt tu string he 10
+                    dummy.rotateRight();
 
-    //                QInt dummy(items.at(2), formatSrc); // khoi tao QInt tu string he 10
-    //                dummy.rotateRight();
+                    res = Convert::QIntToStringNumber(dummy);
 
-    //                res = Convert::QIntToStringNumber(dummy);
+                    {
+                        writeToFile(outFile, formatDes, dummy);
+                    }
 
-    //                {
-    //                    writeToFile(outFile, formatDes, dummy);
-    //                }
+                    break;
+                }
 
-    //                break;
-    //            }
+                if (items.at(1) == "~") {
 
-    //            if (items.at(1) == "~") {
+                    // Luu yeu cau dau vao dau ra.
 
-    //                // Luu yeu cau dau vao dau ra.
+                    formatSrc = getFormat(items.at(0));
+                    formatDes = getFormat(items.at(0));
 
-    //                formatSrc = getFormat(items.at(0));
-    //                formatDes = getFormat(items.at(0));
+                    QInt dummy(items.at(2), formatSrc); // khoi tao QInt tu string he 10
+                    dummy = ~dummy;
 
-    //                QInt dummy(items.at(2), formatSrc); // khoi tao QInt tu string he 10
-    //                dummy = ~dummy;
+                    {
+                        writeToFile(outFile, formatDes, dummy);
+                    }
+                    
+                    break;
+                }
+                // Mac dinh la chuyen co so:
 
-    //                res = Convert::QIntToStringNumber(dummy);
+                // Luu yeu cau nguon
+                {
+                    formatSrc = getFormat(items.at(0));
+                }
+                // Luu yeu cau dich
+                {
+                    formatDes = getFormat(items.at(1));
 
-    //                {
-    //                    writeToFile(outFile, formatDes, dummy);
-    //                }
-    //                
-    //                break;
-    //            }
-    //            // Mac dinh la chuyen co so:
+                }
 
-    //            // Luu yeu cau nguon
-    //            {
-    //                formatSrc = getFormat(items.at(0));
-    //            }
-    //            // Luu yeu cau dich
-    //            {
-    //                formatDes = getFormat(items.at(1));
+                QInt dummy(items.at(2), formatSrc); // khoi tao QInt tu string he 10
+                {
+                    writeToFile(outFile, formatDes, dummy);
+                }
 
-    //            }
+                break;
+            }
+            case 4: { // Neu arr co 4 phan tu thi string line co 3 space.
+                // Voi 3 space ta co cac phep toan: +, -, *, /, and, or, xor, <<, >>
 
-    //            QInt dummy(items.at(2), formatSrc); // khoi tao QInt tu string he 10
-    //            {
-    //                writeToFile(outFile, formatDes, dummy);
-    //            }
+                // Luu yeu cau dau vao dau ra.
+                formatSrc = getFormat(items.at(0));
+                formatDes = getFormat(items.at(0));
 
-    //            break;
-    //        }
-    //        case 4: { // Neu arr co 4 phan tu thi string line co 3 space.
-    //            // Voi 3 space ta co cac phep toan: +, -, *, /, and, or, xor, <<, >>
+                if (items.at(2) != "<<" && items.at(2) != ">>") {
+                    QInt operand1(items.at(1), formatSrc); // khoi tao QInt tu string he formatSrc
+                    QInt operand2(items.at(3), formatSrc); // khoi tao QInt tu string he formatSrc
 
-    //            // Luu yeu cau dau vao dau ra.
-    //            formatSrc = getFormat(items.at(0));
-    //            formatDes = getFormat(items.at(0));
+                    QInt res("0");
+                    char currentOperator = ' ';
 
-    //            if (items.at(2) != "<<" && items.at(2) != ">>") {
-    //                QInt operand1(items.at(1), formatSrc); // khoi tao QInt tu string he formatSrc
-    //                QInt operand2(items.at(3), formatSrc); // khoi tao QInt tu string he formatSrc
+                    if (items.at(2) == "+") {
+                        res = operand1 + operand2;
+                        currentOperator = '+';
+                    }
+                    if (items.at(2) == "-") {
+                        res = operand1 - operand2;
+                        currentOperator = '-';
+                    }
+                    if (items.at(2) == "*") {
+                        res = operand1 * operand2;
+                        currentOperator = '*';
+                    }
+                    if (items.at(2) == "/") {
+                        res = operand1 / operand2;
+                        currentOperator = '/';
+                    }
+                    if (items.at(2) == "&") {
+                        res = operand1 & operand2;
+                    }
+                    if (items.at(2) == "^") {
+                        res = operand1 ^ operand2;
+                    }
+                    if (items.at(2) == "|") {
+                        res = operand1 | operand2;
+                    }
 
-    //                QInt res("0");
+                    // Ghi xuong file
+                    {
+                        if(currentOperator=='+' || currentOperator == '-' || currentOperator == '*' || currentOperator == '/'){
+                            if (isDeadthZone(operand1, operand2, res, currentOperator)) {
+                                outFile << "0" << endl;
+                                break;
+                            }
+                        }
+                        writeToFile(outFile, formatDes, res);
+                    }
 
-    //                if (items.at(2) == "+") {
-    //                    res = operand1 + operand2;
-    //                }
-    //                if (items.at(2) == "-") {
-    //                    res = operand1 - operand2;
-    //                }
-    //                if (items.at(2) == "*") {
-    //                    res = operand1 * operand2;
-    //                }
-    //                if (items.at(2) == "/") {
-    //                    res = operand1 / operand2;
-    //                }
-    //                if (items.at(2) == "&") {
-    //                    res = operand1 & operand2;
-    //                }
-    //                if (items.at(2) == "^") {
-    //                    res = operand1 ^ operand2;
-    //                }
-    //                if (items.at(2) == "|") {
-    //                    res = operand1 | operand2;
-    //                }
+                    break;
+                }
+                else {
+                    QInt operand(items.at(1), formatSrc); // khoi tao QInt tu string he formatSrc
+                    int step = atoi(items.at(3).c_str());
+                    if (items.at(2) == "<<") {
+                        operand = operand << step;
+                    }
+                    if (items.at(2) == ">>") {
+                        operand = operand >> step;
+                    }
 
-    //                // Ghi xuong file
-    //                {
-    //                    writeToFile(outFile, formatDes, res);
-    //                }
+                    // Ghi xuong file
+                    {
+                        writeToFile(outFile, formatDes, operand);
+                    }
 
-    //                break;
-    //            }
-    //            else {
-    //                QInt operand(items.at(1), formatSrc); // khoi tao QInt tu string he formatSrc
-    //                int step = atoi(items.at(3).c_str());
-    //                if (items.at(2) == "<<") {
-    //                    operand = operand << step;
-    //                }
-    //                if (items.at(2) == ">>") {
-    //                    operand = operand >> step;
-    //                }
+                    break;
+                }
 
-    //                // Ghi xuong file
-    //                {
-    //                    writeToFile(outFile, formatDes, operand);
-    //                }
+                break;
+            }
+            }
+        }
 
-    //                break;
-    //            }
+        // free
+        formatSrc = formatDes = 0;
+        items.clear();
+    }
 
-    //            break;
-    //        }
-    //        }
-    //    }
-
-    //    // free
-    //    formatSrc = formatDes = 0;
-    //    items.clear();
-    //}
-
-    //inFile.close();
-    //outFile.close();
+    inFile.close();
+    outFile.close();
 
 }
