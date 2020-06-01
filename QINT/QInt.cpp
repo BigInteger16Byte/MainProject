@@ -415,7 +415,7 @@ QInt QInt::rotateRight()
 		this->SetBit(i, bin[i] == '0' ? 0 : 1);
 	}
 
-	return QInt(*this);
+	return QInt(bin, 1);
 }
 
 QInt QInt::rotateLeft() {

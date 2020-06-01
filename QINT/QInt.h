@@ -33,13 +33,10 @@ private:
 public:
 
 	/*               -----------------CONSTRUCTOR-----------------           */
-
 	QInt();
-	QInt(string, int = 0); // Xem cmt
-
+	QInt(string, int = 0); // Khởi tạo QInt từ string BIN, string DEC, string HEX
 
 	/*               -----------------OVERLOADING-----------------           */
-
 	/* Opeartor overloading */
 	QInt& operator=(unsigned int);
 
@@ -66,8 +63,6 @@ public:
 	/* IO Overloading */
 	friend ostream& operator<< (ostream&, const QInt);
 	friend istream& operator>>(istream&, QInt&);
-
-
 
 	/*               -------------------OTHERS-------------------           */
 
