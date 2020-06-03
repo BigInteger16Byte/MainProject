@@ -439,11 +439,3 @@ istream& operator>>(istream& is, QInt& num) {
 	num = Convert::StringNumberToQInt(temp);
 	return is;
 }
-
-
-
-
-
-
-// Tui vua update constructor co the tao QInt tu String Dec (-, +), string Bin, string Hex	:==D
-

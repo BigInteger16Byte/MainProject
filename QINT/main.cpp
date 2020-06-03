@@ -9,7 +9,9 @@
 using namespace std;
 
 
-// Ta quy uoc: 0 (he 10), 1(he 2), 2(he 16)
+/* Dùng để nhận format dạng đầu vào và đầu ra của mỗi dòng */
+/* Ta quy uoc: 0 (he 10), 1(he 2), 2(he 16) */
+
 int getFormat(string val) {
     if (val == "2") {// Tinh toan tren he 2
         return 1;
@@ -22,6 +24,8 @@ int getFormat(string val) {
     }
 }
 
+
+/* Ghi kết quả xuông file */
 
 void writeToFile(ofstream& out, int formatDes, QInt num) {
 	string res = "";
@@ -43,85 +47,8 @@ void writeToFile(ofstream& out, int formatDes, QInt num) {
 	}
 }
 
-
-void testBit(QInt x) {
-	for (int i = 0; i < 128; i++) {
-		cout << x.GetBit(i);
-		if ((i + 1) % 32 == 0)  cout << endl;
-	}
-	cout << endl;
-}
-
-// Kiểm tra tràn số
-
-/* Tràn trên */
-// Chuổi Bin dài hơn 128 kí tự
-// Chuổi Dec dài hơn 39 kí tự or bằng 39 và lớn hơn chuổi "170141183460469231731687303715884105727" (so sánh chuổi 2^127 - 1) , Miền giá trị [ -2^127 , 2^127-1 ]
-// Chuổi Hex dài hơn 32 kí tự, max: "FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF" 32F
-
-/* Tràn dưới */
-// Chuổi Bin dài hơn 128 kí tự
-// Chuổi Dec dài hơn 40 kí tự (thêm dấu trừ của số âm) or bằng 30 và nhỏ hơn chuổi "-170141183460469231731687303715884105728" (so sánh chuổi -2^127) , Miền giá trị [ -2^127 , 2^127-1 ]
-// Chuổi Hex bé hơn "0", không âm
-
-// Nhưng mà nếu phần dài hơn đó toàn là số 0 thì nó vẫn đúng
-//https://stackoverflow.com/questions/30394086/integer-division-overflows
-//https://www.geeksforgeeks.org/check-integer-overflow-multiplication/
-//https://stackoverflow.com/questions/1633561/how-to-detect-overflow-when-subtracting-two-signed-32-bit-numbers-in-c
-//https://www.geeksforgeeks.org/check-for-integer-overflow/
-//https://wiki.sei.cmu.edu/confluence/display/c/INT32-C.+Ensure+that+operations+on+signed+integers+do+not+result+in+overflow
-
-//bool isOverflow(string src, int format = 0) {
-//    /* Bin overflow */
-//    string cloneSrc = src;
-//
-//    switch (format)
-//    {
-//    case 0: { // default he Dec
-//        if (cloneSrc[0] != '-') {
-//            // So duong
-//            cloneSrc = delete0(cloneSrc); // xoa so 0 o dau
-//
-//            if (cloneSrc.length() > 39 || (cloneSrc.length() == 39 && cloneSrc > "170141183460469231731687303715884105727")) {
-//                return false;
-//            }
-//        }
-//        else {
-//            // So am
-//            cloneSrc = cloneSrc.substr(1); // cat bo dau tru
-//            cloneSrc = delete0(cloneSrc); // xoa so 0 o dau
-//
-//            if (cloneSrc.length() > 39 || (cloneSrc.length() == 39 && cloneSrc > "170141183460469231731687303715884105728")) {
-//                return false;
-//            }
-//        }
-//
-//        break;
-//    }
-//
-//    case 1: { // He Bin
-//        if (cloneSrc.length() > 128) {
-//            return false;
-//        }
-//
-//        break;
-//    }
-//
-//    case 2: { // He Hex
-//        cloneSrc = delete0(cloneSrc); // xoa so 0 o dau
-//
-//        if (cloneSrc.length() > 32) {
-//            return false;
-//        }
-//
-//        break;
-//    }
-//
-//    default:  
-//        return true;
-//    }
-//}
-
+/* References overflow */
+/*https://wiki.sei.cmu.edu/confluence/display/c/INT32-C.+Ensure+that+operations+on+signed+integers+do+not+result+in+overflow*/
 
 // So sanh 2 QInt xem thang nao lon hon (a>b => 1, a<b => -1, a=b => 0)
 int compareTwoQInt(QInt a, QInt b) {
@@ -184,6 +111,7 @@ int compareTwoQInt(QInt a, QInt b) {
 // Kiểm tra quá trình tính toán có xãy ra overflow hay không
 // Tham số đầu vào: số a, số b, kết quả của phép tính, toán tử
 // Đầu ra: nếu phat hiện tràn trả về 1, không tràn trả về 0
+
 bool isDeadthZone(QInt a, QInt b, QInt res, char opera) {
 
     //overflow on number
@@ -239,9 +167,9 @@ bool isDeadthZone(QInt a, QInt b, QInt res, char opera) {
     }
 }
 
-int main(int argc, char* argv[]) {
+/* Main func */ // Running with gcc
 
- 
+int main(int argc, char* argv[]) {
 
     ifstream inFile;
     ofstream outFile;
@@ -438,5 +366,4 @@ int main(int argc, char* argv[]) {
 
     inFile.close();
     outFile.close();
-
 }

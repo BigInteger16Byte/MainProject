@@ -33,8 +33,3 @@ public :
 	static string QIntToStringNumber(QInt); //support cho ham xuat
 	static QInt StringNumberToQInt(string); // support cho ham nhap
 };
-
-
-
-
-

@@ -11,11 +11,3 @@ string Power2String(int exp);
 string Div2String(string num, bool& bit);
 string delete0(string str);
 int compareTwoStringLikeNumber(string a, string b);
-
-
-
-
-
-
-
-
